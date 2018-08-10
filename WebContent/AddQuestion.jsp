@@ -7,10 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<jsp:include page="FormHomePage.jsp"></jsp:include><br>
+<br>
+<jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
+Adding questions in : <jsp:getProperty property="formName" name="form"/>
+
 <form action="" method="post">
-Admin Id: <input type="text" name="adminId">
-Admin Password: <input type="password" name="adminPass">
-Form Id: <input type="text" name="formId">
 Question: <input type="text" name="question">
 <input type="submit" value="Add"> </form>
 </body>

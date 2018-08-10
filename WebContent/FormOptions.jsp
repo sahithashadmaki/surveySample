@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="ServletCreateForm" method="post">
-Form Title: <input type="text" name="formName">
-<input type="submit" value="next"></form>
+
+
+<a href="AddQuestion.jsp">Add Questions</a>
+<a href="">Delete Questions</a>
 </body>
 </html>

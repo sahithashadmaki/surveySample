@@ -15,20 +15,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.UserDAO;
+
 /**
  * Servlet implementation class AdminServlet
  */
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AdminServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,42 +40,43 @@ public class AdminServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		Connection con=null;
 		//response.setContentType("text/html");
-		String adminName=request.getParameter("aname");
-		String adminPass=request.getParameter("apass");
-		AdminInfoClass adminInfo=new AdminInfoClass();
-		adminInfo.setAdminName(adminName);
-		adminInfo.setAdminPassword(adminPass);
+		String adminName=request.getParameter("uname");
+		String adminPass=request.getParameter("pass");
+		UserInfo adminInfo=new AdminInfoClass();
+		adminInfo.setName(adminName);
+		adminInfo.setPassword(adminPass);
 		HttpSession session=request.getSession();
-	//	PrintWriter out=response.getWriter();
-		String sql="select * from admin;";
-		
-		PreparedStatement prepStmt=null;
-		try {
-		con=ConnectionDB.getconnection();
-		prepStmt=con.prepareStatement(sql);
-			ResultSet rs=prepStmt.executeQuery();
-		while(rs.next()){
-			String adminNameDB=rs.getString(2);
-			System.out.println("admin name from DB: "+adminNameDB);
-			System.out.println("adminName: "+adminInfo.getAdminName());
-			String adminPassDB=rs.getString(3);
-			System.out.println("admin password: from DB"+adminPassDB);
-			System.out.println("admin password: "+adminInfo.getAdminPassword());
-			if(adminName.equals(adminInfo.getAdminName()) && adminPass.equals(adminInfo.getAdminPassword())){
-				session.setAttribute("adminName", adminInfo);
-				
-				request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
-				//response.sendRedirect("/AdminOptions.jsp");
-			}
-		}
-		
-		} catch (SQLException e) {
-				
-				e.printStackTrace();
-			}
-			
-	}
+		//	PrintWriter out=response.getWriter();
+		String sql="select role from users where user_name=? and user_pass=?;";
 	
+		try{
+		con=ConnectionDB.getconnection();
+			//String role=(ValidateUser.check(con, sql, adminName, adminPass));
+		adminInfo=UserDAO.login(adminInfo, con,sql, adminName, adminPass);
+			String role=adminInfo.getRole();
+			System.out.println(role);
+			System.out.println(adminInfo.isValid());
+			if(adminInfo.isValid()){
+				System.out.println(adminInfo.isValid());
+				if(role.equals("admin")){
+					session.setAttribute("adminName", adminInfo);
+					System.out.println("aaaaaaaaaaa");
+					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
+				}else if(role.equals("user")){
+
+				}
+			}
+			else{
+
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+
+	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -81,7 +84,7 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 
-}
+
+	}
 }

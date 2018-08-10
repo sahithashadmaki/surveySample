@@ -8,10 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="AdminHeader.jsp"></jsp:include>
+<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+<br>
 <jsp:useBean id="adminName" class="SurveyApplication.AdminInfoClass" scope="session" />
-Hello: <jsp:getProperty property="adminName" name="adminName"/>
-
-
+Hello: <jsp:getProperty property="name" name="adminName"/>
 </body>
 </html>

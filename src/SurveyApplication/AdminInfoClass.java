@@ -1,20 +1,18 @@
 package SurveyApplication;
 
-public class AdminInfoClass {
-String adminName;
-String adminPassword;
+import java.util.ArrayList;
+import java.util.List;
 
-public  String getAdminName() {
-	return adminName;
+public class AdminInfoClass extends UserInfo {
+List<CommonDetails> list=new ArrayList<>();
+
+public List<CommonDetails> getList() {
+	return list;
 }
-public void setAdminName(String adminName) {
-	this.adminName = adminName;
+
+public void setList(List<CommonDetails> list) {
+	this.list = list;
 }
-public String getAdminPassword() {
-	return adminPassword;
-}
-public void setAdminPassword(String adminPassword) {
-	this.adminPassword = adminPassword;
-}
+
 
 }
