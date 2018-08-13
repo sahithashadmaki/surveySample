@@ -3,7 +3,7 @@ package SurveyApplication;
 public class CommonDetails implements QuestionsInterface{
 	int questionNo;
 	String question;
-
+String queType;
 
 		@Override
 		public void setQuestionNo(int a) {
@@ -20,6 +20,14 @@ public class CommonDetails implements QuestionsInterface{
 		}
 		public String getQuestion() {
 			return question;
+		}
+		@Override
+		public void setQueType(String a) {
+			// TODO Auto-generated method stub
+			
+		}
+		public String getQueType() {
+			return queType;
 		}
 
 }

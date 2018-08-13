@@ -47,7 +47,7 @@ public class AdminServlet extends HttpServlet {
 		adminInfo.setPassword(adminPass);
 		HttpSession session=request.getSession();
 		//	PrintWriter out=response.getWriter();
-		String sql="select role from users where user_name=? and user_pass=?;";
+		String sql="select user_id,role from users where user_name=? and user_pass=?;";
 	
 		try{
 		con=ConnectionDB.getconnection();
@@ -59,7 +59,7 @@ public class AdminServlet extends HttpServlet {
 			if(adminInfo.isValid()){
 				System.out.println(adminInfo.isValid());
 				if(role.equals("admin")){
-					session.setAttribute("adminName", adminInfo);
+					session.setAttribute("admin", adminInfo);
 					System.out.println("aaaaaaaaaaa");
 					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
 				}else if(role.equals("user")){

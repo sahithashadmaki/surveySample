@@ -42,16 +42,21 @@ public class ServletCreateForm extends HttpServlet {
 		String sql="insert into forms(form_title,admin_id) values(?,?)";
 		String formName=request.getParameter("formName");
 		form.setFormTitle(formName);
-		String admin=(String) session.getAttribute("adminName");//doubtttttttt
+		//String admin=(String) session.getAttribute("adminName");//doubtttttttt
+		
+		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
+		int adminId=admin.getId();
+		System.out.println("admin id: "+adminId);
 		try {
 			con=ConnectionDB.getconnection();
 			PreparedStatement prepStmt=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			prepStmt.setString(1, formName);
-			prepStmt.setString(2, admin);
+			prepStmt.setInt(2, adminId);
 			prepStmt.executeUpdate();
 			ResultSet rs=prepStmt.getGeneratedKeys();
 			if(rs.next()){
 				form.setFormId(rs.getInt(1));
+				System.out.println("formId: "+form.getFormId());
 			}
 			session.setAttribute("form", form);
 			request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);

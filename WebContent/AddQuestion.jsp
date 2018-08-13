@@ -11,10 +11,34 @@
 <jsp:include page="FormHomePage.jsp"></jsp:include><br>
 <br>
 <jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
-Adding questions in : <jsp:getProperty property="formName" name="form"/>
+Adding questions in : <jsp:getProperty property="formTitle" name="form"/>
 
-<form action="" method="post">
+<form action="AddQueServlet" method="post">
 Question: <input type="text" name="question">
-<input type="submit" value="Add"> </form>
+</form>
+<button id="demo" onclick="myFunction()">Click me</button>
+<button id="demo" onclick="send()">Send</button>
+
+<div id="options">
+</div>
+
+<script>
+
+var spanTotal = document.createElement("span");
+function myFunction() {
+spanTotal.innerHTML += "<input style=\"width:50px\" type=\"text\"  name=\"array\">";
+document.getElementById('options').appendChild(spanTotal);
+}
+
+function send() {
+	var options=new Array();
+    for(i=0; i < spanTotal.childNodes.length; i++)
+    {
+      options.push(spanTotal.childNodes[i].value);
+      //document.getElementById("options").innerHTML=options;
+    }
+};
+</script>
+
 </body>
 </html>

@@ -21,10 +21,13 @@ import SurveyApplication.UserInfo;
 	  		prepStmt.setString(2, pass);
 	  		//prepStmt.executeUpdate();
 	  		ResultSet rs=prepStmt.executeQuery();
+	  		
 	  		boolean value=rs.next();
 	  		System.out.println("value: "+value);
 	  		if(value){
-	  		role=rs.getString(1);
+	  	    userInfo.setId(rs.getInt(1));
+	  	    System.out.println("AdminId"+rs.getInt(1));
+	  		role=rs.getString(2);
 	  		userInfo.setRole(role);
 	  		System.out.println(role);
 	  		userInfo.setValid(true);
@@ -36,7 +39,9 @@ import SurveyApplication.UserInfo;
 	  			throw new MyException("User doesn't exist");
 	  			
 	  		}
-	  		
+	  	
+	  	}catch(MyException e){
+	  		System.out.println(e.getMessage());
 	  	}
 	      catch (Exception ex) 
 	      {
