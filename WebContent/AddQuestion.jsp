@@ -10,14 +10,35 @@
 
 <jsp:include page="FormHomePage.jsp"></jsp:include><br>
 <br>
+
 <jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
 Adding questions in : <jsp:getProperty property="formTitle" name="form"/>
 
 <form action="AddQueServlet" method="post">
+<jsp:include page="TypeOfQuestion.jsp"></jsp:include><br>
+<br>
 Question: <input type="text" name="question">
-</form>
-<button id="demo" onclick="myFunction()">Click me</button>
-<button id="demo" onclick="send()">Send</button>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+    $('#typeId').on('change', function() {
+      if ( this.value == 'Multiple Choice')
+      {
+        $("#addBtn").show();
+      }
+      else
+      {
+        $("#addBtn").hide();
+      }
+    });
+});
+</script>
+
+
+<button style="display:none" id="addBtn" onclick="myFunction()" type="button">Add Option</button>
+
 
 <div id="options">
 </div>
@@ -26,7 +47,7 @@ Question: <input type="text" name="question">
 
 var spanTotal = document.createElement("span");
 function myFunction() {
-spanTotal.innerHTML += "<input style=\"width:50px\" type=\"text\"  name=\"array\">";
+spanTotal.innerHTML += "<input style=\"width:50px\" type=\"text\" name=\"array\">";
 document.getElementById('options').appendChild(spanTotal);
 }
 
@@ -39,6 +60,8 @@ function send() {
     }
 };
 </script>
-
+<button onclick="send()" name="add">Add</button>
+<input type="submit" name="addStop" value="Add&Stop">
+</form>
 </body>
 </html>

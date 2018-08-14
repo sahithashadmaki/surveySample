@@ -38,21 +38,21 @@ public class AdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		Connection con=null;
+		
 		//response.setContentType("text/html");
 		String adminName=request.getParameter("uname");
 		String adminPass=request.getParameter("pass");
-		UserInfo adminInfo=new AdminInfoClass();
+		AdminInfoClass adminInfo=new AdminInfoClass();
 		adminInfo.setName(adminName);
 		adminInfo.setPassword(adminPass);
 		HttpSession session=request.getSession();
 		//	PrintWriter out=response.getWriter();
-		String sql="select user_id,role from users where user_name=? and user_pass=?;";
+		UserDAO user=new UserDAO();
 	
 		try{
-		con=ConnectionDB.getconnection();
+		
 			//String role=(ValidateUser.check(con, sql, adminName, adminPass));
-		adminInfo=UserDAO.login(adminInfo, con,sql, adminName, adminPass);
+		adminInfo=user.login(adminInfo, adminName, adminPass);
 			String role=adminInfo.getRole();
 			System.out.println(role);
 			System.out.println(adminInfo.isValid());

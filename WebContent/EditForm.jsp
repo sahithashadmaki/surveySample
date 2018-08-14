@@ -7,13 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-select type of question
-<select id="typeId" name="questionType">
-<option value="default">--Select questionType--</option>  
-<option>Multiple Choice</option>
-<option>Text Type</option>
-</select>
-
+<form action="">
+<input ></form>
 </body>
 </html>

@@ -10,12 +10,15 @@ import SurveyApplication.MyException;
 import SurveyApplication.UserInfo;
  public class UserDAO 	{
 		
-	      public static UserInfo login(UserInfo userInfo,Connection con,String sql,String name,String pass) {
+	      public AdminInfoClass login(AdminInfoClass userInfo,String name,String pass) {
 	    	  String role = null;
 	    	  PreparedStatement prepStmt=null;
+	    	  Connection con=null;
 	         //preparing some objects for connection 
-	       //  Statement stmt = null;    
+	       //  Statement stmt = null; 
+	    	  String sql="select user_id,role from users where user_name=? and user_pass=?;";
 	      try {
+	    	  con=ConnectionDB.getConnection();
 	    	  prepStmt=con.prepareStatement(sql);
 	  		prepStmt.setString(1, name);
 	  		prepStmt.setString(2, pass);

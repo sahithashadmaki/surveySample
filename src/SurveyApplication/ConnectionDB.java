@@ -30,7 +30,7 @@ public class ConnectionDB {
 		}
 	}
 	
-	public static Connection getconnection() throws SQLException{
+	public static Connection getConnection() throws SQLException{
 		Connection con=null;
 		try{
 			

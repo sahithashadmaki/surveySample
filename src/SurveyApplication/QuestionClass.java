@@ -1,18 +1,11 @@
 package SurveyApplication;
 
-public class CommonDetails implements QuestionsInterface{
-	int questionNo;
+public class QuestionClass implements QuestionsInterface {
+	int questionId;
 	String question;
 String queType;
 
-		@Override
-		public void setQuestionNo(int a) {
-			this.questionNo=a;
-			
-		}
-		public int getQuestionNo() {
-			return questionNo;
-		}
+		
 		@Override
 		public void question(String a) {
 		this.question=a;
@@ -29,5 +22,13 @@ String queType;
 		public String getQueType() {
 			return queType;
 		}
-
+		@Override
+		public void setQuestionId(int a) {
+			this.questionId=a;
+			
+		}
+		public int getQuestionId() {
+			return questionId;
+		}
+		
 }

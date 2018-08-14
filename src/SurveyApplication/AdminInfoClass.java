@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminInfoClass extends UserInfo {
-	List<CommonDetails> list=new ArrayList<>();
+	ArrayList<Forms> formList;
 
-	public List<CommonDetails> getList() {
-		return list;
+	public ArrayList<Forms> getFormList() {
+		return formList;
 	}
 
-	public void setList(List<CommonDetails> list) {
-		this.list = list;
+	public void setFormList(ArrayList<Forms> formList) {
+		this.formList = formList;
 	}
-
+	
 
 }

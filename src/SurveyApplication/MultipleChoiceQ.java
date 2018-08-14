@@ -1,6 +1,6 @@
 package SurveyApplication;
 
-public class MultipleChoiceQ extends CommonDetails{
+public class MultipleChoiceQ extends QuestionClass{
 
 String questionOptions[];
 

@@ -1,5 +1,5 @@
 package SurveyApplication;
 
-public class TextQ extends CommonDetails{
+public class TextQ extends QuestionClass{
 
 }
