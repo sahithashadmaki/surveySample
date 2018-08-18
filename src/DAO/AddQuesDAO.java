@@ -8,13 +8,14 @@ import java.sql.Statement;
 
 import SurveyApplication.ConnectionDB;
 import SurveyApplication.MultipleChoiceQ;
+import SurveyApplication.QuestionClass;
 
 
 public class AddQuesDAO {
-public MultipleChoiceQ addQ(MultipleChoiceQ qObj,String question,String type,int formId){
+public QuestionClass addQ(QuestionClass qObj,String question,String type,int formId){
 	 PreparedStatement prepStmt=null;
 	  Connection con=null;
-	  String sql="insert into questions(q_text,form_id,type) values(?,?,?))";
+	  String sql="insert into questions(q_text,form_id,q_type) values(?,?,?);";
 	  try {
 		con=ConnectionDB.getConnection();
 		prepStmt =con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -23,16 +24,37 @@ public MultipleChoiceQ addQ(MultipleChoiceQ qObj,String question,String type,int
 		prepStmt.setString(3, type);
 		prepStmt.executeUpdate();
 		ResultSet rs=prepStmt.getGeneratedKeys();
-		if(rs.next()){
-			qObj.setQuestionId(rs.getInt(1));
-			System.out.println("question Id: "+rs.getInt(1));
+		if(qObj instanceof MultipleChoiceQ){
+			MultipleChoiceQ mulObj=(MultipleChoiceQ)qObj;
+			if(rs.next()){
+				
+				mulObj.setQuestionId(rs.getInt(1));
+				System.out.println("question Id: "+rs.getInt(1));
+			}
+		
+			System.out.println("In if() in AddQuesDAO");
+			mulObj.setQuestion(question);
+			mulObj.setQueType(type);
+			return mulObj;
+			
+		}else{
+			if(rs.next()){
+				qObj.setQuestionId(rs.getInt(1));
+				System.out.println("question Id: "+rs.getInt(1));
+			}
+			System.out.println("In else in AddQuesDAO");
+			qObj.setQuestion(question);
+			qObj.setQueType(type);
 		}
+		
 	} catch (SQLException e) {
 		
 		e.printStackTrace();
 	}
-	  
 	return qObj;
+
+	  
+	
 	
 }
 }

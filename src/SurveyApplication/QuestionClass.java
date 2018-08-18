@@ -4,31 +4,39 @@ public class QuestionClass implements QuestionsInterface {
 	int questionId;
 	String question;
 String queType;
+boolean valid;
 
+
+public void setQuestionId(int questionId) {
+	this.questionId = questionId;
+}
+@Override
+public int getQuestionId() {
+	return questionId;
+	
+}
+public void setQuestion(String question) {
+	this.question = question;
+}
+
+@Override
+public String getquestion() {
+	return question;
+}
+public void setQueType(String queType) {
+	this.queType = queType;
+}
+@Override
+public String getQueType() {
+	return queType;
+}
+public boolean isValid() {
+	return valid;
+}
+public void setValid(boolean valid) {
+	this.valid = valid;
+}
 		
-		@Override
-		public void question(String a) {
-		this.question=a;
-			
-		}
-		public String getQuestion() {
-			return question;
-		}
-		@Override
-		public void setQueType(String a) {
-			// TODO Auto-generated method stub
-			
-		}
-		public String getQueType() {
-			return queType;
-		}
-		@Override
-		public void setQuestionId(int a) {
-			this.questionId=a;
-			
-		}
-		public int getQuestionId() {
-			return questionId;
-		}
+		
 		
 }

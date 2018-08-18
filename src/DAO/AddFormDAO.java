@@ -13,7 +13,7 @@ public class AddFormDAO {
 	public Forms add(Forms form,int adminId,String formName){
 		Connection con=null;
 		PreparedStatement prepStmt=null;
-		String sql="insert into forms(form_title,admin_id) values(?,?)";
+		String sql="insert into forms(form_title,admin_id) values(?,?);";
 		try {
 			con=ConnectionDB.getConnection();
 			prepStmt=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);

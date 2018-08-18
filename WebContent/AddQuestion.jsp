@@ -58,6 +58,7 @@ function send() {
       options.push(spanTotal.childNodes[i].value);
       //document.getElementById("options").innerHTML=options;
     }
+    
 };
 </script>
 <button onclick="send()" name="add">Add</button>
