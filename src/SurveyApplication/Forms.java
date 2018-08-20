@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Forms {
 int formId;
 String formTitle;
-ArrayList<QuestionsInterface> list;
+ArrayList<QuestionClass> list;
 public int getFormId() {
 	return formId;
 }
@@ -19,10 +19,10 @@ public String getFormTitle() {
 public void setFormTitle(String formTitle) {
 	this.formTitle = formTitle;
 }
-public ArrayList<QuestionsInterface> getList() {
+public ArrayList<QuestionClass> getList() {
 	return list;
 }
-public void setList(ArrayList<QuestionsInterface> list) {
+public void setList(ArrayList<QuestionClass> list) {
 	this.list = list;
 }
 

@@ -4,7 +4,7 @@ public class QuestionClass implements QuestionsInterface {
 	int questionId;
 	String question;
 String queType;
-boolean valid;
+
 
 
 public void setQuestionId(int questionId) {
@@ -23,6 +23,10 @@ public void setQuestion(String question) {
 public String getquestion() {
 	return question;
 }
+@Override
+public String toString() {
+	return "QuestionClass [questionId=" + questionId + ", question=" + question + ", queType=" + queType + "]";
+}
 public void setQueType(String queType) {
 	this.queType = queType;
 }
@@ -30,12 +34,7 @@ public void setQueType(String queType) {
 public String getQueType() {
 	return queType;
 }
-public boolean isValid() {
-	return valid;
-}
-public void setValid(boolean valid) {
-	this.valid = valid;
-}
+
 		
 		
 		
