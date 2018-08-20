@@ -25,7 +25,7 @@ public String getquestion() {
 }
 @Override
 public String toString() {
-	return "QuestionClass [questionId=" + questionId + ", question=" + question + ", queType=" + queType + "]";
+	return "QuestionClass [questionId=" + questionId + ", question=" + question + ", queType=" + queType +"]"+"\n";
 }
 public void setQueType(String queType) {
 	this.queType = queType;

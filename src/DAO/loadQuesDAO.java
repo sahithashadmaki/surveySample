@@ -12,17 +12,12 @@ import SurveyApplication.QuestionClass;
 import SurveyApplication.QuestionsInterface;
 
 public class loadQuesDAO {
-	public QuestionClass addQtoList(Forms form,QuestionClass qObj,int formId){
+
+	public void addQtoList(Forms form,String type,int formId){
 		Connection con=null;
 		PreparedStatement prepStmt=null;
-		//ResultSet rs=null;
-		//QuestionClass queObj=new QuestionClass();
-		ArrayList<QuestionClass> list=new ArrayList<>();
 		String sql="select * from questions where form_id=?;";
-		//Forms form=new Forms();
-		//where form_id=?;
-		//list=form.getList();
-		
+		ArrayList<QuestionClass> list=new ArrayList<>();
 		try {
 			con=ConnectionDB.getConnection();
 			prepStmt=con.prepareStatement(sql);
@@ -30,10 +25,11 @@ public class loadQuesDAO {
 			prepStmt.setInt(1, formId);
 			ResultSet rs=prepStmt.executeQuery();
 			
-				if(qObj instanceof MultipleChoiceQ){
+				if(type.equals("Multiple Choice")){
 					System.out.println("instance of mul class");
-					MultipleChoiceQ mulObj=(MultipleChoiceQ)qObj;
+					
 					while(rs.next()){
+						MultipleChoiceQ mulObj=new MultipleChoiceQ();
 						System.out.println("while loop in loadQuesDAO");
 						mulObj.setQuestionId(rs.getInt(1));
 						mulObj.setQuestion(rs.getString(2));
@@ -45,16 +41,15 @@ public class loadQuesDAO {
 					form.setList(list);
 					System.out.println(list);
 					
-					return mulObj;
-				}else{
+				}else if(type.equals("Text Type")){
 					System.out.println("else instance of");
 					while(rs.next()){
+						QuestionClass qObj=new QuestionClass();
 						qObj.setQuestionId(rs.getInt(1));
 						qObj.setQuestion(rs.getString(2));
 						qObj.setQueType(rs.getString(4));
 						list.add(qObj);
 					}
-					
 					form.setList(list);
 				}
 				
@@ -63,6 +58,6 @@ public class loadQuesDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return qObj;
+		
 	}
 }

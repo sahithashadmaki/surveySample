@@ -22,6 +22,7 @@ import DAO.UserDAO;
  */
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
+	UserDAO user;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -31,7 +32,9 @@ public class AdminServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+public void init(){
+	user=new UserDAO();
+}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -47,7 +50,7 @@ public class AdminServlet extends HttpServlet {
 		adminInfo.setPassword(adminPass);
 		HttpSession session=request.getSession();
 		//	PrintWriter out=response.getWriter();
-		UserDAO user=new UserDAO();
+		
 	
 		try{
 		
@@ -63,7 +66,7 @@ public class AdminServlet extends HttpServlet {
 					System.out.println("aaaaaaaaaaa");
 					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
 				}else if(role.equals("user")){
-
+					
 				}
 			}
 			else{

@@ -25,5 +25,9 @@ public ArrayList<QuestionClass> getList() {
 public void setList(ArrayList<QuestionClass> list) {
 	this.list = list;
 }
+@Override
+public String toString() {
+	return "Forms [formId=" + formId + ", formTitle=" + formTitle + "]"+"\n";
+}
 
 }

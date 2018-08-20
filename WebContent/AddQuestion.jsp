@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,62 +8,71 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
+	Adding questions in :
+	<jsp:getProperty property="formTitle" name="form" />
+	<br></br>
+	<h4>Below are the Questions added already</h4>
+	<br>
+	<table>
+		<c:forEach items="${list}" var="list">
+			<tr>
+				<th>Question Id</th>
+				<th>Question</th>
+			</tr>
+			<tr>
+				<td><c:out value="${list.questionId}" /></td>
+				<td><c:out value="${list.question}" /></td>
 
-<jsp:include page="FormHomePage.jsp"></jsp:include><br>
-<br>
+			</tr>
+		</c:forEach>
+	</table>
+	---------------------------------------------------------------------------------------------------------
+	<form action="AddQueServlet" method="post">
+		<jsp:include page="TypeOfQuestion.jsp"></jsp:include><br> <br>
+		Question: <input type="text" name="question">
 
-<jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
-Adding questions in : <jsp:getProperty property="formTitle" name="form"/>
-
-<form action="AddQueServlet" method="post">
-<jsp:include page="TypeOfQuestion.jsp"></jsp:include><br>
-<br>
-Question: <input type="text" name="question">
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-$(document).ready(function(){
-    $('#typeId').on('change', function() {
-      if ( this.value == 'Multiple Choice')
-      {
-        $("#addBtn").show();
-      }
-      else
-      {
-        $("#addBtn").hide();
-      }
-    });
-});
-</script>
+		<script
+			src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+			
+		</script>
+		<script>
+			$(document).ready(function() {
+				$('#typeId').on('change', function() {
+					if (this.value == 'Multiple Choice') {
+						$("#addBtn").show();
+					} else {
+						$("#addBtn").hide();
+					}
+				});
+			});
+		</script>
 
 
-<button style="display:none" id="addBtn" onclick="myFunction()" type="button">Add Option</button>
+		<button style="display: none" id="addBtn" onclick="myFunction()"
+			type="button">Add Option</button>
 
 
-<div id="options">
-</div>
+		<div id="options"></div>
 
-<script>
+		<script>
+			var spanTotal = document.createElement("span");
+			function myFunction() {
+				spanTotal.innerHTML += "<input style=\"width:50px\" type=\"text\" name=\"array\">";
+				document.getElementById('options').appendChild(spanTotal);
+			}
 
-var spanTotal = document.createElement("span");
-function myFunction() {
-spanTotal.innerHTML += "<input style=\"width:50px\" type=\"text\" name=\"array\">";
-document.getElementById('options').appendChild(spanTotal);
-}
+			function send() {
+				var options = new Array();
+				for (i = 0; i < spanTotal.childNodes.length; i++) {
+					options.push(spanTotal.childNodes[i].value);
 
-function send() {
-	var options=new Array();
-    for(i=0; i < spanTotal.childNodes.length; i++)
-    {
-      options.push(spanTotal.childNodes[i].value);
-      //document.getElementById("options").innerHTML=options;
-    }
-    
-};
-</script>
-<button onclick="send()" name="add">Add</button>
-<input type="submit" name="addStop" value="Add&Stop">
-</form>
+				}
+
+			};
+		</script>
+		<button onclick="send()" name="add">Add</button>
+		<input type="submit" name="addStop" value="Add&Stop">
+	</form>
 </body>
 </html>

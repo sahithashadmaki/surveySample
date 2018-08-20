@@ -25,9 +25,11 @@ import DAO.loadQuesDAO;
  */
 @WebServlet("/AddQueServlet")
 public class AddQueServlet extends HttpServlet {
+	AddQuesDAO addQobj;
+	loadQuesDAO loadDb;
 
 	//public static ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-	 //public static  ObjectMapper mapper = new ObjectMapper();
+	//public static  ObjectMapper mapper = new ObjectMapper();
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -37,21 +39,19 @@ public class AddQueServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	public void init(){
+		addQobj=new AddQuesDAO();
+		loadDb=new loadQuesDAO();
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		 
 		HttpSession session=request.getSession();
-		AddQuesDAO addQobj=new AddQuesDAO();
-
-		loadQuesDAO loadDb=new loadQuesDAO();
 		Forms form=new Forms();
-
+		//ArrayList<QuestionClass> qlist = null;
 		String button1 = request.getParameter("add");
 		String button2 = request.getParameter("addStop");
 		String question=request.getParameter("question");
@@ -63,48 +63,38 @@ public class AddQueServlet extends HttpServlet {
 		System.out.println("formId in addQservlet"+formId);
 		if(type.equals("Multiple Choice")){
 			String arr[]=request.getParameterValues("array");
-		//	JsonConvert json=new JsonConvert();
-		//	String JSONstring=json.getOptionsAsJSONString(ow,arr);
-			
+			//	JsonConvert json=new JsonConvert();
+			//	String JSONstring=json.getOptionsAsJSONString(ow,arr);
+
 			MultipleChoiceQ obj=new MultipleChoiceQ();
 			//obj=(MultipleChoiceQ) loadDb.addQtoList(formId);
-			
+
 			obj=(MultipleChoiceQ) addQobj.addQ(obj, question, type, formId);
-			obj=(MultipleChoiceQ) loadDb.addQtoList(form, obj, formId);
+			 loadDb.addQtoList(form,type, formId);
 			obj.setQuestionOptions(arr);
 			session.setAttribute("questionsObj",obj );
 			int length=arr.length;
 			for(int i=0;i<length;i++){
 				System.out.println(arr[i]);
 			}
-			
+
 			ArrayList<QuestionClass> qlist=form.getList();
-		
-			for(QuestionsInterface q:qlist){
-				System.out.println("qlist Id: "+q.getQuestionId());
-				System.out.println("qlist Question: "+q.getquestion());
-				System.out.println("qlist questn type: "+q.getQueType());
-			}
-		
+
+			System.out.println(qlist);
+			request.setAttribute("list", qlist);
 			session.setAttribute("form", form);
-			
+
 		}else if(type.equals("Text Type")){
 			QuestionClass qObj=new QuestionClass();
-			qObj=loadDb.addQtoList(form, qObj, formId);
-			
 			qObj=addQobj.addQ(qObj, question, type, formId);
-			/*if(qObj.isValid()==false){
-				ArrayList<QuestionClass> qlist=new ArrayList<>();
-				qlist.add(qObj);
-				form.setList(qlist);
-				session.setAttribute("form", form);
-			}else{*/
+			loadDb.addQtoList(form,type, formId);
+			
 			ArrayList<QuestionClass> list=form.getList();
-			list.add(qObj);
-			form.setList(list);
+			System.out.println(list);
+			request.setAttribute("list", list);
 			session.setAttribute("form", form);
-			}
-		
+		}
+
 
 		if(button1!=null){
 			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
@@ -123,5 +113,5 @@ public class AddQueServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
+
 }

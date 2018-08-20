@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="FormHomePage.jsp">Forms</a>
+<a href="FormChangesServlet">Forms</a>
 <a href="">UserInfo</a>
 
 </body>

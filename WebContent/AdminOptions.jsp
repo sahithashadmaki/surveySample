@@ -10,7 +10,7 @@
 <body>
 <jsp:include page="AdminHeader.jsp"></jsp:include><br>
 <br>
-<jsp:useBean id="admin" class="SurveyApplication.AdminInfoClass" scope="session" />
-Hello: <jsp:getProperty property="name" name="admin"/>
+Hello:  ${admin.name}
+
 </body>
 </html>
