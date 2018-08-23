@@ -1,6 +1,7 @@
 package SurveyApplication;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,52 +57,56 @@ public class AddQueServlet extends HttpServlet {
 		String button2 = request.getParameter("addStop");
 		String question=request.getParameter("question");
 		String type=request.getParameter("questionType");
-		//List<QuestionsInterface> list=form.getList();
 
-		form=(Forms) session.getAttribute("form");
+		form=(Forms) request.getAttribute("id");
 		int formId=form.getFormId();
-		System.out.println("formId in addQservlet"+formId);
+		System.out.println("formId in addQservlet: "+formId);
+		try {
 		if(type.equals("Multiple Choice")){
 			String arr[]=request.getParameterValues("array");
 			//	JsonConvert json=new JsonConvert();
 			//	String JSONstring=json.getOptionsAsJSONString(ow,arr);
 
 			MultipleChoiceQ obj=new MultipleChoiceQ();
-			//obj=(MultipleChoiceQ) loadDb.addQtoList(formId);
-
-			obj=(MultipleChoiceQ) addQobj.addQ(obj, question, type, formId);
-			 loadDb.addQtoList(form,type, formId);
 			obj.setQuestionOptions(arr);
-			session.setAttribute("questionsObj",obj );
+			obj=(MultipleChoiceQ) addQobj.addQ(obj,type,question,formId);
+			
+			loadDb.addQtoList(form,formId);
+			
+			//session.setAttribute("questionsObj",obj );
 			int length=arr.length;
 			for(int i=0;i<length;i++){
 				System.out.println(arr[i]);
 			}
-
 			ArrayList<QuestionClass> qlist=form.getList();
 
 			System.out.println(qlist);
 			request.setAttribute("list", qlist);
-			session.setAttribute("form", form);
+			//session.setAttribute("form", form);
+			request.setAttribute("form", form);
 
 		}else if(type.equals("Text Type")){
 			QuestionClass qObj=new QuestionClass();
-			qObj=addQobj.addQ(qObj, question, type, formId);
-			loadDb.addQtoList(form,type, formId);
+			//qObj.setQueType(type);
+		//	qObj.setQuestion(question);
+			qObj=addQobj.addQ(qObj,type,question,formId);
+			loadDb.addQtoList(form, formId);
 			
 			ArrayList<QuestionClass> list=form.getList();
 			System.out.println(list);
 			request.setAttribute("list", list);
-			session.setAttribute("form", form);
+			request.setAttribute("form", form);
 		}
-
 
 		if(button1!=null){
 			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
 		}else if(button2!=null){
 			request.getRequestDispatcher("/AdminHeader.jsp").forward(request, response);
 		}
-
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//list.add(obj);
 
 	}

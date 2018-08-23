@@ -12,10 +12,13 @@ import SurveyApplication.QuestionClass;
 
 
 public class AddQuesDAO {
-public QuestionClass addQ(QuestionClass qObj,String question,String type,int formId){
+public QuestionClass addQ(QuestionClass qObj,String type,String question,int formId) throws SQLException{
 	 PreparedStatement prepStmt=null;
 	  Connection con=null;
 	  String sql="insert into questions(q_text,form_id,q_type) values(?,?,?);";
+	 // String type=qObj.getQueType();
+	 // String question=qObj.getquestion();
+	
 	  try {
 		con=ConnectionDB.getConnection();
 		prepStmt =con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -50,6 +53,9 @@ public QuestionClass addQ(QuestionClass qObj,String question,String type,int for
 	} catch (SQLException e) {
 		
 		e.printStackTrace();
+	}finally{
+		con.close();
+		System.out.println("connection Closed");
 	}
 	return qObj;
 

@@ -11,25 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.LoadFormDAO;
+import DAO.DeleteDAO;
+import DAO.loadQuesDAO;
 
 /**
- * Servlet implementation class EditFormServlet
+ * Servlet implementation class EditQueServlet
  */
-@WebServlet("/FormChangesServlet")
-public class FormChangesServlet extends HttpServlet {
-	LoadFormDAO loadForm;
+@WebServlet("/EditQueServlet")
+public class EditQueServlet extends HttpServlet {
+	loadQuesDAO loadQues;
+	DeleteDAO deleteQ;
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FormChangesServlet() {
+    public EditQueServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 public void init(){
-	loadForm=new LoadFormDAO();
+	loadQues=new loadQuesDAO();
+	deleteQ=new DeleteDAO();
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,23 +40,19 @@ public void init(){
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session =request.getSession();
-		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
-		int adminId=admin.getId();
-		System.out.println("admin id: "+adminId);
-		String sql="select * from forms where admin_id="+adminId+";";
-		AdminInfoClass adminObj=new AdminInfoClass();
-		try {
-			adminObj=loadForm.addFormsToList(sql);
-		
-		ArrayList<Forms> mylist=adminObj.getFormList();
-		System.out.println(mylist);
-		request.setAttribute("mylist", mylist);
-		request.getRequestDispatcher("/FormHomePage.jsp").forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//HttpSession session =request.getSession();
+		String id=(String) request.getParameter("id");
+		String question=request.getParameter("que");
+		System.out.println(id);
+		System.out.println(question);
+	String sql="delete from questions where q_id="+id+"and q_text="+"'"+question+"'"+";";
+	System.out.println(sql);
+	try {
+		deleteQ.delete(sql);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		
 	}
 

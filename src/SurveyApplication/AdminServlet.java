@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.LoadFormDAO;
 import DAO.UserDAO;
 
 /**
@@ -23,6 +25,7 @@ import DAO.UserDAO;
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	UserDAO user;
+	LoadFormDAO loadForm;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -32,62 +35,66 @@ public class AdminServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-public void init(){
-	user=new UserDAO();
-}
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		//response.setContentType("text/html");
-		String adminName=request.getParameter("uname");
-		String adminPass=request.getParameter("pass");
-		AdminInfoClass adminInfo=new AdminInfoClass();
-		adminInfo.setName(adminName);
-		adminInfo.setPassword(adminPass);
-		HttpSession session=request.getSession();
-		//	PrintWriter out=response.getWriter();
-		
-	
-		try{
-		
-			//String role=(ValidateUser.check(con, sql, adminName, adminPass));
-		adminInfo=user.login(adminInfo, adminName, adminPass);
-			String role=adminInfo.getRole();
-			System.out.println(role);
-			System.out.println(adminInfo.isValid());
-			if(adminInfo.isValid()){
-				System.out.println(adminInfo.isValid());
-				if(role.equals("admin")){
-					session.setAttribute("admin", adminInfo);
-					System.out.println("aaaaaaaaaaa");
-					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
-				}else if(role.equals("user")){
-					
-				}
-			}
-			else{
 
-			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-
+	public void init() {
+		user = new UserDAO();
+		loadForm = new LoadFormDAO();
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// response.getWriter().append("Served at:
+		// ").append(request.getContextPath());
+
+		// response.setContentType("text/html");
+		String uName = request.getParameter("uname");
+		String uPass = request.getParameter("pass");
+
+		UserInfo userInfo = new UserInfo();
+		HttpSession session = request.getSession();
+
+		try {
+			userInfo = user.login(uName, uPass);
+			String role = userInfo.getRole();
+			System.out.println("role: " + role);
+			System.out.println("userInfo.isValid(): " + userInfo.isValid());
+			if (userInfo.isValid()) {
+				System.out.println("userInfo.isValid(): " + userInfo.isValid());
+				if (role.equals("admin")) {
+					AdminInfoClass adminInfo = (AdminInfoClass) userInfo;
+					session.setAttribute("admin", adminInfo);
+					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
+				}else if (role.equals("user")) {
+					String sql = "select * from forms;";
+					loadForm.addFormsToList(sql);
+					AdminInfoClass adminObj = new AdminInfoClass();
+					ArrayList<Forms> list = adminObj.getFormList();
+					request.setAttribute("list", list);
+					session.setAttribute("user", userInfo);
+					request.getRequestDispatcher("/FormList.jsp").forward(request, response);
+				}
+			} else {
+				request.setAttribute("errorMsg", "invalid username or password");
+				request.getRequestDispatcher("/UserLogin.jsp").forward(request, response);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-
 
 	}
 }

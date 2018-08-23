@@ -11,17 +11,15 @@ import SurveyApplication.ConnectionDB;
 import SurveyApplication.Forms;
 
 public class LoadFormDAO {
-	ArrayList<Forms> list=new ArrayList<>();
-public void addFormsToList(int adminId, AdminInfoClass admin){
+	
+public AdminInfoClass addFormsToList(String sql) throws SQLException{
 	Connection con=null;
 	PreparedStatement prepStmt=null;
-	
-	String sql="select * from forms where admin_id=?;";
+	AdminInfoClass adminObj=new AdminInfoClass();
+	ArrayList<Forms> list=new ArrayList<>();
 	try {
 		con=ConnectionDB.getConnection();
 		prepStmt=con.prepareStatement(sql);
-		System.out.println("formid before setting: "+adminId);
-		prepStmt.setInt(1, adminId);
 		ResultSet rs=prepStmt.executeQuery();
 		while(rs.next()){
 			Forms formObj=new Forms();
@@ -29,10 +27,15 @@ public void addFormsToList(int adminId, AdminInfoClass admin){
 			formObj.setFormTitle(rs.getString(2));
 			list.add(formObj);
 		}
-		admin.setFormList(list);
+		
+		adminObj.setFormList(list);
 	} catch (SQLException e) {
 		e.printStackTrace();
+	}finally{
+		con.close();
+		System.out.println("connection Closed");
 	}
+	return adminObj;
 
 }
 }

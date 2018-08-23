@@ -11,32 +11,41 @@
 	<form action="CreateForm.jsp">
 		<input type="submit" value="createForm">
 	</form>
-	<br>
-	<h3>List of Forms</h3>
 	<br> admin Id: ${admin.id}
 	<br> admin Name: ${admin.name}
+	<h3>List of Forms</h3>
 	<br>
-	<form action="EditFormServlet" method="post">
-		<table>
-			<c:forEach items="${mylist}" var="list">
-				<tr>
-					<td><c:out value="${list.formId}" /></td>
-					<td><c:out value="${list.formTitle}" /></td>
-					<td><button
-							onclick="send('${list.formId}','${list.formTitle}')" name="edit">Edit</button></td>
-					<td><input type="button" value="Delete" name="delete"></td>
-				</tr>
-			</c:forEach>
-		</table>
-	</form>
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-		
-	</script>
+	<table>
+		<tr>
+			<th>FormId</th>
+			<th>FormTitle</th>
+		</tr>
+		<c:forEach items="${mylist}" var="list">
+			<tr>
+				<td><c:out value="${list.formId}" /></td>
+				<td><c:out value="${list.formTitle}" /></td>
+				<td><button
+						onclick="addParameterToURL('${list.formId}','${list.formTitle}','edit')"
+						name="edit">Edit</button></td>
+				<td><button
+						onclick="addParameterToURL('${list.formId}','${list.formTitle}','delete')"
+						name="delete">Delete</button></td>
+			</tr>
+		</c:forEach>
+	</table>
+
 	<script>
-		function send(id, title) {
+		function addParameterToURL(id, name, btn) {
+			document.location.href = "EditFormServlet?id=" + id + "&&name="
+					+ name + "&&btn=" + btn;
 
 		}
 	</script>
 </body>
 </html>
+
+<%-- 					<c:set var="id" scope="request" value="${list.formId}"></c:set> --%>
+<%-- <td><button onclick="<c:set var="id" scope="request" value="${list.formId}"></c:set>" name="edit">Edit</button></td> --%>
+<%-- <c:url value = "/EditFormServlet" var = "myURL">
+  					 <c:param name = "id" value = "${list.formId}"/>
+						</c:url> --%>

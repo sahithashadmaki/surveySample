@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.AddFormDAO;
 import DAO.LoadFormDAO;
+import DAO.loadQuesDAO;
 
 /**
  * Servlet implementation class ServletCreateForm
@@ -24,6 +26,7 @@ import DAO.LoadFormDAO;
 public class ServletCreateForm extends HttpServlet {
 	AddFormDAO addForm;
 	LoadFormDAO loadForm;
+	loadQuesDAO loadQues;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -36,6 +39,7 @@ public class ServletCreateForm extends HttpServlet {
 public void init(){
 	addForm=new AddFormDAO();
 	loadForm=new LoadFormDAO();
+	loadQues=new loadQuesDAO();
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,13 +58,21 @@ public void init(){
 
 		int adminId=admin.getId();
 		System.out.println("admin id: "+adminId);
-	
-		form=addForm.add(form,adminId,formName);
-		loadForm.addFormsToList(adminId,admin);
+		try {
+			form=addForm.add(form,adminId,formName);
 		
-		session.setAttribute("form", form);
+		int formId=form.getFormId();
+		loadQues.addQtoList(form, formId);
+		ArrayList<QuestionClass> list=form.getList();
+		//list=form.getList();
+		request.setAttribute("list", list);
+		//session.setAttribute("form", form);
+		request.setAttribute("form", form);
 		request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
-
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -13,7 +13,7 @@ import SurveyApplication.QuestionsInterface;
 
 public class loadQuesDAO {
 
-	public void addQtoList(Forms form,String type,int formId){
+	public void addQtoList(Forms form,int formId) throws SQLException{
 		Connection con=null;
 		PreparedStatement prepStmt=null;
 		String sql="select * from questions where form_id=?;";
@@ -24,39 +24,25 @@ public class loadQuesDAO {
 			System.out.println("formid before setting: "+formId);
 			prepStmt.setInt(1, formId);
 			ResultSet rs=prepStmt.executeQuery();
+			while(rs.next()){
+				QuestionClass qObj=new QuestionClass();
+				qObj.setQuestionId(rs.getInt(1));
+				qObj.setQuestion(rs.getString(2));
+				qObj.setQueType(rs.getString(4));
+				System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(4));
+				System.out.println(qObj.getQuestionId()+" "+qObj.getquestion()+" "+qObj.getQueType());
+				list.add(qObj);
+			}
+			form.setList(list);
+			System.out.println("list in DAO:----"+list);
 			
-				if(type.equals("Multiple Choice")){
-					System.out.println("instance of mul class");
-					
-					while(rs.next()){
-						MultipleChoiceQ mulObj=new MultipleChoiceQ();
-						System.out.println("while loop in loadQuesDAO");
-						mulObj.setQuestionId(rs.getInt(1));
-						mulObj.setQuestion(rs.getString(2));
-						mulObj.setQueType(rs.getString(4));
-						System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(4));
-						System.out.println(mulObj.getQuestionId()+" "+mulObj.getquestion()+" "+mulObj.getQueType());
-						list.add(mulObj);
-					}
-					form.setList(list);
-					System.out.println(list);
-					
-				}else if(type.equals("Text Type")){
-					System.out.println("else instance of");
-					while(rs.next()){
-						QuestionClass qObj=new QuestionClass();
-						qObj.setQuestionId(rs.getInt(1));
-						qObj.setQuestion(rs.getString(2));
-						qObj.setQueType(rs.getString(4));
-						list.add(qObj);
-					}
-					form.setList(list);
-				}
-				
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			con.close();
+			System.out.println("connection Closed");
 		}
 		
 	}

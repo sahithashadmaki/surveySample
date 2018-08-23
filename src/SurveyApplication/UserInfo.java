@@ -4,6 +4,7 @@ public class UserInfo {
 	int id;
 String name;
 String password;
+String email;
 boolean valid;
 String role;
 
@@ -36,6 +37,12 @@ public String getRole() {
 }
 public void setRole(String role) {
 	this.role = role;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
 }
 
 }

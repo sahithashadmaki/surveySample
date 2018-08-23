@@ -7,11 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="" method="post">
+<form action="UserSignUp" method="post">
 Name: <input type="text" name="name">
 Email: <input type="text" name="email">
 Password: <input type="password" name="pwd">
-Date Of Birth: <input type="date" name="dob">
 <input type="submit" value="signUp"></form>
 
 </body>

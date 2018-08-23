@@ -2,6 +2,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import SurveyApplication.AdminInfoClass;
@@ -10,13 +11,12 @@ import SurveyApplication.MyException;
 import SurveyApplication.UserInfo;
  public class UserDAO 	{
 		
-	      public AdminInfoClass login(AdminInfoClass userInfo,String name,String pass) {
+	      public UserInfo login(String name,String pass) throws SQLException {
 	    	  String role = null;
 	    	  PreparedStatement prepStmt=null;
 	    	  Connection con=null;
-	         //preparing some objects for connection 
-	       //  Statement stmt = null; 
-	    	  String sql="select user_id,role from users where user_name=? and user_pass=?;";
+	    	  String sql="select * from users where user_name=? and user_pass=?;";
+	    		UserInfo userInfo=new UserInfo();
 	      try {
 	    	  con=ConnectionDB.getConnection();
 	    	  prepStmt=con.prepareStatement(sql);
@@ -27,33 +27,65 @@ import SurveyApplication.UserInfo;
 	  		
 	  		boolean value=rs.next();
 	  		System.out.println("value: "+value);
-	  		if(value){
-	  	    userInfo.setId(rs.getInt(1));
-	  	    System.out.println("AdminId"+rs.getInt(1));
-	  		role=rs.getString(2);
-	  		userInfo.setRole(role);
-	  		System.out.println(role);
-	  		userInfo.setValid(true);
-	  		System.out.println("admin.isValid()"+userInfo.isValid());
-	  		}
-	  		if(!value){
+			if (value) {
+				role = rs.getString(4);
+				System.out.println(role);
+				if (role.equals("admin")) {
+					AdminInfoClass adminInfo = new AdminInfoClass();
+					adminInfo.setValid(true);
+					System.out.println("adminInfo.isValid()" + adminInfo.isValid());
+					
+					adminInfo.setId(rs.getInt(1));
+					System.out.println("AdminId" + rs.getInt(1));
+					
+					adminInfo.setName(rs.getString(2));
+					System.out.println("admin name: " + rs.getString(2));
+					
+					adminInfo.setPassword(rs.getString(3));
+					System.out.println("admin password: "+rs.getString(3));
+					
+					adminInfo.setRole(role);
+					System.out.println("role: "+role);
+					
+					adminInfo.setEmail(rs.getString(5));
+					System.out.println("admin email Id: " + rs.getString(5));
+					
+					return adminInfo;
+				}else if(role.equals("user")){
+				
+					userInfo.setValid(true);
+					System.out.println("userInfo.isValid()" + userInfo.isValid());
+					
+					userInfo.setId(rs.getInt(1));
+					System.out.println("User Id" + rs.getInt(1));
+					
+					userInfo.setName(rs.getString(2));
+					System.out.println("User name: " + rs.getString(2));
+					
+					userInfo.setPassword(rs.getString(3));
+					System.out.println("User password: "+rs.getString(3));
+					
+					userInfo.setRole(role);
+					System.out.println("role: "+role);
+					
+					userInfo.setEmail(rs.getString(5));
+					System.out.println("use email Id: " + rs.getString(5));
+				}
+			}
+			else{
 	  			userInfo.setValid(false);
 	  			System.out.println("admin.isValid()"+userInfo.isValid());
-	  			throw new MyException("User doesn't exist");
-	  			
 	  		}
-	  	
-	  	}catch(MyException e){
-	  		System.out.println(e.getMessage());
 	  	}
 	      catch (Exception ex) 
 	      {
 	         System.out.println("Log In failed: An Exception has occurred! " + ex);
-	      } 
-		
-
-	return userInfo;
-		
+	         
+	      }finally{
+	  		con.close();
+	  		System.out.println("connection Closed");
+	  	}
+		return userInfo; 
 	      }	
 	   }
 

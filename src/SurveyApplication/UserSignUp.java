@@ -2,34 +2,32 @@ package SurveyApplication;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import DAO.LoadFormDAO;
+import DAO.StoreUserInfoDAO;
 
 /**
- * Servlet implementation class EditFormServlet
+ * Servlet implementation class UserSignUp
  */
-@WebServlet("/FormChangesServlet")
-public class FormChangesServlet extends HttpServlet {
-	LoadFormDAO loadForm;
+@WebServlet("/UserSignUp")
+public class UserSignUp extends HttpServlet {
+	StoreUserInfoDAO user;
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FormChangesServlet() {
+    public UserSignUp() {
         super();
         // TODO Auto-generated constructor stub
     }
 public void init(){
-	loadForm=new LoadFormDAO();
+	user=new StoreUserInfoDAO();
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,24 +35,18 @@ public void init(){
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session =request.getSession();
-		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
-		int adminId=admin.getId();
-		System.out.println("admin id: "+adminId);
-		String sql="select * from forms where admin_id="+adminId+";";
-		AdminInfoClass adminObj=new AdminInfoClass();
+		String uname=request.getParameter("name");
+		String email=request.getParameter("email");
+		String pass=request.getParameter("pwd");
+		String sql="insert into users(user_name,user_pass,role,email) values('"+uname+"','"+pass+"','user','"+email+"');";
+		System.out.println(sql);
 		try {
-			adminObj=loadForm.addFormsToList(sql);
-		
-		ArrayList<Forms> mylist=adminObj.getFormList();
-		System.out.println(mylist);
-		request.setAttribute("mylist", mylist);
-		request.getRequestDispatcher("/FormHomePage.jsp").forward(request, response);
+			user.insertToDB(sql);
+			request.getRequestDispatcher("/UserLogin.jsp").forward(request, response);
+			//response.sendRedirect("/UserLogin.jsp");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	/**

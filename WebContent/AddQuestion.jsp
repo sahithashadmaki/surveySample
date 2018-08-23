@@ -8,18 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
+	<%-- <jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
 	Adding questions in :
-	<jsp:getProperty property="formTitle" name="form" />
-	<br></br>
+	<jsp:getProperty property="formTitle" name="form" /> --%>
+	Adding questions in form with ID: ${form.formId}
+	<br>
 	<h4>Below are the Questions added already</h4>
 	<br>
 	<table>
+		<tr>
+			<th>Question Id</th>
+			<th>Question</th>
+		</tr>
 		<c:forEach items="${list}" var="list">
-			<tr>
-				<th>Question Id</th>
-				<th>Question</th>
-			</tr>
+
 			<tr>
 				<td><c:out value="${list.questionId}" /></td>
 				<td><c:out value="${list.question}" /></td>
@@ -27,6 +29,9 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<jsp:useBean id="id" class="SurveyApplication.Forms" scope="request" />
+	<jsp:setProperty property="formId" name="id" value="${form.formId}" />
+
 	---------------------------------------------------------------------------------------------------------
 	<form action="AddQueServlet" method="post">
 		<jsp:include page="TypeOfQuestion.jsp"></jsp:include><br> <br>
@@ -62,16 +67,26 @@
 				document.getElementById('options').appendChild(spanTotal);
 			}
 
-			function send() {
+			function send(id) {
 				var options = new Array();
 				for (i = 0; i < spanTotal.childNodes.length; i++) {
 					options.push(spanTotal.childNodes[i].value);
-
+					/*  $(document).ready(function(){
+					        $.post("EditQueServlet",
+					        {
+					          id: id,
+					          que: que
+					        }
+					        );
+					}); */
 				}
 
 			};
 		</script>
-		<button onclick="send()" name="add">Add</button>
+		<%-- 		<c:set var="formId" value="${form.formId}" scope="request"/> --%>
+		<%-- <jsp:useBean id="id" class="SurveyApplication.Forms" scope="request"></jsp:useBean>
+	<jsp:setProperty property="formId" name="id" value="${form.formId}"/> --%>
+		<button onclick="send('${form.formId}')" name="add">Add</button>
 		<input type="submit" name="addStop" value="Add&Stop">
 	</form>
 </body>
