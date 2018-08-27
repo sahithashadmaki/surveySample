@@ -19,8 +19,7 @@ import DAO.loadQuesDAO;
  */
 @WebServlet("/EditQueServlet")
 public class EditQueServlet extends HttpServlet {
-	loadQuesDAO loadQues;
-	DeleteDAO deleteQ;
+	DeleteDAO deleteObj;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -31,8 +30,7 @@ public class EditQueServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 public void init(){
-	loadQues=new loadQuesDAO();
-	deleteQ=new DeleteDAO();
+	deleteObj=DeleteDAO.getObj();
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,12 +43,12 @@ public void init(){
 		String question=request.getParameter("que");
 		System.out.println(id);
 		System.out.println(question);
-	String sql="delete from questions where q_id="+id+"and q_text="+"'"+question+"'"+";";
+	String sql="delete from questions where q_id="+id+";";
 	System.out.println(sql);
 	try {
-		deleteQ.delete(sql);
+		deleteObj.delete(sql);
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
+		
 		e.printStackTrace();
 	}
 		

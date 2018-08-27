@@ -6,11 +6,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import SurveyApplication.AdminInfoClass;
-import SurveyApplication.ConnectionDB;
+import DAO.ConnectionDB;
 import SurveyApplication.MyException;
 import SurveyApplication.UserInfo;
  public class UserDAO 	{
-		
+		static UserDAO userdao=new UserDAO();
+		private UserDAO(){}
+		public static UserDAO getObj(){
+			return userdao;
+			
+		}
 	      public UserInfo login(String name,String pass) throws SQLException {
 	    	  String role = null;
 	    	  PreparedStatement prepStmt=null;

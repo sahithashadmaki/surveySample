@@ -27,7 +27,7 @@ import DAO.loadQuesDAO;
 @WebServlet("/AddQueServlet")
 public class AddQueServlet extends HttpServlet {
 	AddQuesDAO addQobj;
-	loadQuesDAO loadDb;
+	loadQuesDAO loadQues;
 
 	//public static ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 	//public static  ObjectMapper mapper = new ObjectMapper();
@@ -41,8 +41,8 @@ public class AddQueServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	public void init(){
-		addQobj=new AddQuesDAO();
-		loadDb=new loadQuesDAO();
+		addQobj=AddQuesDAO.getObj();
+		loadQues=loadQuesDAO.getObj();
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,16 +50,27 @@ public class AddQueServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
 		Forms form=new Forms();
 		//ArrayList<QuestionClass> qlist = null;
-		String button1 = request.getParameter("add");
-		String button2 = request.getParameter("addStop");
+		String button1 = request.getParameter("button1");
+		String button2 = request.getParameter("button2");
+		
 		String question=request.getParameter("question");
-		String type=request.getParameter("questionType");
-
-		form=(Forms) request.getAttribute("id");
-		int formId=form.getFormId();
+		System.out.println("question: "+question); 
+		String type=request.getParameter("type");
+		System.out.println("type: "+type);
+String formId=request.getParameter("id");
+		//form=(Forms) request.getAttribute("id");
+	//	int formId=form.getFormId();
 		System.out.println("formId in addQservlet: "+formId);
 		try {
 		if(type.equals("Multiple Choice")){
@@ -69,9 +80,9 @@ public class AddQueServlet extends HttpServlet {
 
 			MultipleChoiceQ obj=new MultipleChoiceQ();
 			obj.setQuestionOptions(arr);
-			obj=(MultipleChoiceQ) addQobj.addQ(obj,type,question,formId);
+			obj=(MultipleChoiceQ) addQobj.addQ(obj,type,question,Integer.parseInt(formId));
 			
-			loadDb.addQtoList(form,formId);
+			loadQues.addQtoList(form,Integer.parseInt(formId));
 			
 			//session.setAttribute("questionsObj",obj );
 			int length=arr.length;
@@ -89,8 +100,8 @@ public class AddQueServlet extends HttpServlet {
 			QuestionClass qObj=new QuestionClass();
 			//qObj.setQueType(type);
 		//	qObj.setQuestion(question);
-			qObj=addQobj.addQ(qObj,type,question,formId);
-			loadDb.addQtoList(form, formId);
+			qObj=addQobj.addQ(qObj,type,question,Integer.parseInt(formId));
+			loadQues.addQtoList(form,Integer.parseInt(formId));
 			
 			ArrayList<QuestionClass> list=form.getList();
 			System.out.println(list);
@@ -109,13 +120,6 @@ public class AddQueServlet extends HttpServlet {
 		}
 		//list.add(obj);
 
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -7,8 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="ServletCreateForm" method="post">
+<form name="myform" action="ServletCreateForm" method="post" onsubmit="return validation()">
 Form Title: <input type="text" name="formName">
 <input type="submit" value="next"></form>
+<script>
+function validation() {
+	   var formName = document.forms["myform"]["formName"].value;
+	    if ((formName == null || formName == "")) {
+	        alert("Entries cannot be empty..!!");
+	        return false;
+	    }
+	}</script>
 </body>
 </html>

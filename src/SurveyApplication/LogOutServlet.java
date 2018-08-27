@@ -1,59 +1,40 @@
 package SurveyApplication;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import DAO.StoreUserInfoDAO;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class UserSignUp
+ * Servlet implementation class LogOutServlet
  */
-@WebServlet("/UserSignUp")
-public class UserSignUp extends HttpServlet {
-	StoreUserInfoDAO user;
+@WebServlet("/LogOutServlet")
+public class LogOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserSignUp() {
+    public LogOutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-public void init(){
-	user=StoreUserInfoDAO.getObj();
-}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String uname=request.getParameter("name");
-		String email=request.getParameter("email");
-		String pass=request.getParameter("pwd");
-		String emailCheckQuery="select * from users where email='"+email+"';";
-		System.out.println(emailCheckQuery);
-		String sql="insert into users(user_name,user_pass,role,email) values('"+uname+"','"+pass+"','user','"+email+"');";
-		System.out.println(sql);
-		try {
-			boolean emailExist=user.insertToDB(emailCheckQuery,sql);
-			if(emailExist){
-				String errorMsg="Record with this Email Id Exists";
-				request.setAttribute("emailError", errorMsg);
-				request.getRequestDispatcher("/SignUp.jsp").forward(request, response);
-			}else{
-			request.getRequestDispatcher("/UserLogin.jsp").forward(request, response);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		HttpSession session=request.getSession();
+		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
+		int adminId=admin.getId();
+		session.invalidate();
+		System.out.println("invalidated session");
+		response.sendRedirect("/UserLogin.jsp");
 	}
 
 	/**

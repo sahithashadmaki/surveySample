@@ -6,16 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import SurveyApplication.ConnectionDB;
+import DAO.ConnectionDB;
 import SurveyApplication.MultipleChoiceQ;
 import SurveyApplication.QuestionClass;
 
 
 public class AddQuesDAO {
+	static AddQuesDAO addQues=new AddQuesDAO();
+	public static AddQuesDAO getObj(){
+		return addQues;
+		
+	}
+	private AddQuesDAO(){
+		
+	}
 public QuestionClass addQ(QuestionClass qObj,String type,String question,int formId) throws SQLException{
 	 PreparedStatement prepStmt=null;
 	  Connection con=null;
-	  String sql="insert into questions(q_text,form_id,q_type) values(?,?,?);";
+	  String sql="insert into questions(q_text,form_id,q_type) values(?,"+"(select form_id from forms where form_id=?),"+"?);";
 	 // String type=qObj.getQueType();
 	 // String question=qObj.getquestion();
 	

@@ -24,7 +24,7 @@ import DAO.UserDAO;
  */
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
-	UserDAO user;
+	UserDAO userdao;
 	LoadFormDAO loadForm;
 	private static final long serialVersionUID = 1L;
 
@@ -37,8 +37,8 @@ public class AdminServlet extends HttpServlet {
 	}
 
 	public void init() {
-		user = new UserDAO();
-		loadForm = new LoadFormDAO();
+		userdao = UserDAO.getObj();
+		loadForm = LoadFormDAO.getObj();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class AdminServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
-			userInfo = user.login(uName, uPass);
+			userInfo = userdao.login(uName, uPass);
 			String role = userInfo.getRole();
 			System.out.println("role: " + role);
 			System.out.println("userInfo.isValid(): " + userInfo.isValid());
@@ -71,8 +71,8 @@ public class AdminServlet extends HttpServlet {
 					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
 				}else if (role.equals("user")) {
 					String sql = "select * from forms;";
-					loadForm.addFormsToList(sql);
 					AdminInfoClass adminObj = new AdminInfoClass();
+					adminObj=loadForm.addFormsToList(sql);
 					ArrayList<Forms> list = adminObj.getFormList();
 					request.setAttribute("list", list);
 					session.setAttribute("user", userInfo);

@@ -6,10 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import SurveyApplication.ConnectionDB;
+import DAO.ConnectionDB;
 import SurveyApplication.Forms;
 
 public class AddFormDAO {
+	static AddFormDAO addForm=new AddFormDAO();
+	public static AddFormDAO getObj(){
+		return addForm;
+		
+	}
+	private AddFormDAO(){
+		
+	}
 	public Forms add(Forms form, int adminId, String formName) throws SQLException {
 		Connection con = null;
 		PreparedStatement prepStmt = null;
@@ -19,7 +27,15 @@ public class AddFormDAO {
 			prepStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			prepStmt.setString(1, formName);
 			prepStmt.setInt(2, adminId);
-			prepStmt.executeUpdate();
+			int records=prepStmt.executeUpdate();
+			if(records>0){
+				System.out.println("success");
+				form.setValid(true);
+			}else{
+				System.out.println("stuck somewhere");
+				form.setValid(false);
+				//throw new SQLException("error inserting");
+			}
 			ResultSet rs = prepStmt.getGeneratedKeys();
 			if (rs.next()) {
 				form.setFormId(rs.getInt(1));
@@ -27,7 +43,9 @@ public class AddFormDAO {
 			}
 			form.setFormTitle(formName);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
 		} finally {
 			con.close();
 			System.out.println("connection Closed");

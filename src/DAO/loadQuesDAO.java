@@ -5,14 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import SurveyApplication.ConnectionDB;
+import DAO.ConnectionDB;
 import SurveyApplication.Forms;
 import SurveyApplication.MultipleChoiceQ;
 import SurveyApplication.QuestionClass;
 import SurveyApplication.QuestionsInterface;
 
 public class loadQuesDAO {
-
+static loadQuesDAO loadQues=new loadQuesDAO();
+private loadQuesDAO(){
+	
+}
+public static loadQuesDAO getObj(){
+	return loadQues;
+	
+}
 	public void addQtoList(Forms form,int formId) throws SQLException{
 		Connection con=null;
 		PreparedStatement prepStmt=null;

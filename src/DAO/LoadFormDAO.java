@@ -7,11 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import SurveyApplication.AdminInfoClass;
-import SurveyApplication.ConnectionDB;
+import DAO.ConnectionDB;
 import SurveyApplication.Forms;
 
 public class LoadFormDAO {
-	
+	static LoadFormDAO loadForm=new LoadFormDAO();
+	private LoadFormDAO(){
+		
+	}
+	public static LoadFormDAO getObj(){
+		return loadForm;
+		
+	}
 public AdminInfoClass addFormsToList(String sql) throws SQLException{
 	Connection con=null;
 	PreparedStatement prepStmt=null;
@@ -27,7 +34,7 @@ public AdminInfoClass addFormsToList(String sql) throws SQLException{
 			formObj.setFormTitle(rs.getString(2));
 			list.add(formObj);
 		}
-		
+		System.out.println("-------"+list);
 		adminObj.setFormList(list);
 	} catch (SQLException e) {
 		e.printStackTrace();

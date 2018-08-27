@@ -8,9 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <jsp:useBean id="form" class="SurveyApplication.Forms" scope="session" />
-	Adding questions in :
-	<jsp:getProperty property="formTitle" name="form" /> --%>
+
 	Adding questions in form with ID: ${form.formId}
 	<br>
 	<h4>Below are the Questions added already</h4>
@@ -29,11 +27,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<jsp:useBean id="id" class="SurveyApplication.Forms" scope="request" />
-	<jsp:setProperty property="formId" name="id" value="${form.formId}" />
 
 	---------------------------------------------------------------------------------------------------------
-	<form action="AddQueServlet" method="post">
+	<form name="myform" action="AddQueServlet" method="post">
 		<jsp:include page="TypeOfQuestion.jsp"></jsp:include><br> <br>
 		Question: <input type="text" name="question">
 
@@ -57,10 +53,12 @@
 		<button style="display: none" id="addBtn" onclick="myFunction()"
 			type="button">Add Option</button>
 
-
 		<div id="options"></div>
 
-		<script>
+		<button type="button" onclick="send('${form.formId}')" name="add">Add</button>
+		<input type="button" name="addStop" value="Add&Stop">
+	</form>
+	<script>
 			var spanTotal = document.createElement("span");
 			function myFunction() {
 				spanTotal.innerHTML += "<input style=\"width:50px\" type=\"text\" name=\"array\">";
@@ -68,26 +66,34 @@
 			}
 
 			function send(id) {
+				var button1=document.forms["myform"]["add"].value;
+				var button2=document.forms["myform"]["addStop"].value;
+				var type = document.forms["myform"]["questionType"].value;
+				var question = document.forms["myform"]["question"].value;
 				var options = new Array();
+				console.log(type);
+				console.log(question);
 				for (i = 0; i < spanTotal.childNodes.length; i++) {
 					options.push(spanTotal.childNodes[i].value);
-					/*  $(document).ready(function(){
-					        $.post("EditQueServlet",
-					        {
-					          id: id,
-					          que: que
-					        }
-					        );
-					}); */
 				}
-
+				var json = JSON.stringify(options);
+				$(document).ready(function(){
+			        $.post("AddQueServlet",
+			        {
+			          id: id,
+			          type: type,
+			          question: question,
+			          json: json,
+			          button1: button1,
+			          button2: button2
+			        },function(data,status){
+				           if(status=='success'){
+				        	   document.location.href="AddQueServlet";
+				           }
+				        }
+			        );
+			});
 			};
 		</script>
-		<%-- 		<c:set var="formId" value="${form.formId}" scope="request"/> --%>
-		<%-- <jsp:useBean id="id" class="SurveyApplication.Forms" scope="request"></jsp:useBean>
-	<jsp:setProperty property="formId" name="id" value="${form.formId}"/> --%>
-		<button onclick="send('${form.formId}')" name="add">Add</button>
-		<input type="submit" name="addStop" value="Add&Stop">
-	</form>
 </body>
 </html>

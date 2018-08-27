@@ -11,7 +11,7 @@
 	<!-- 
 <form action="AddQuestion.jsp">
 <input type="submit" value="Add Questions"></form> -->
-		<button  onclick="addQuestion('${form.formId}','${form.formTitle}')">Add
+		<button  onclick="addQuestion('${form.formId}')">Add
 		Question</button>
 	<br>form Id: ${form.formId}
 	<br> form Title: ${form.formTitle}
@@ -47,18 +47,18 @@
         );
 });
 	}
-	function addQuestion(fId,fname){
-	   $(document).ready(function(){
+	function addQuestion(fId){
+		 document.location.href="AddQHelperServlet?fid="+fId;
+	 /*   $(document).ready(function(){
 		        $.post("AddQHelperServlet",
 		        {
-		          fid: fId,
-		          fname: fname
-		        },function(status){
+		          fid: fId
+		        },function(data,status){
 		           if(status=='success'){
 		        	   document.location.href="AddQHelperServlet";
 		           }
 		        });
-		});
+		}); */
 	   
 	}
 	</script>

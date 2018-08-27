@@ -23,7 +23,7 @@ import DAO.loadQuesDAO;
 public class EditFormServlet extends HttpServlet {
 	LoadFormDAO loadForm;
 	loadQuesDAO loadQues; 
-	DeleteDAO deleteQ;
+	DeleteDAO deleteObj;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -34,9 +34,9 @@ public class EditFormServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 public void init(){
-	loadForm=new LoadFormDAO();
-	loadQues=new loadQuesDAO();
-	deleteQ=new DeleteDAO();
+	loadForm = LoadFormDAO.getObj();
+	loadQues=loadQuesDAO.getObj();
+	deleteObj=DeleteDAO.getObj();
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,8 +67,9 @@ public void init(){
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
 		}else if(button.equals("delete")){
-			String sql="delete from forms where form_id="+id+"form_title="+title;
-			deleteQ.delete(sql);
+			String sql="delete from forms where form_id="+id+";";
+			System.out.println(sql);
+			deleteObj.delete(sql);
 		}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

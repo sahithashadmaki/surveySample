@@ -9,6 +9,6 @@
 <body>
 <a href="FormChangesServlet">Forms</a>
 <a href="">UserInfo</a>
-
+<a href="">Log Out</a>
 </body>
 </html>

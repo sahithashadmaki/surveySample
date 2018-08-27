@@ -29,7 +29,7 @@ public class FormChangesServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 public void init(){
-	loadForm=new LoadFormDAO();
+	loadForm = LoadFormDAO.getObj();
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
