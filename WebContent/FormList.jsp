@@ -8,19 +8,42 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%-- <c:if test="${not empty(admin.name)}">
+Hello:  ${admin.name} <br>
+<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+</c:if> --%>
+<c:choose>
+<c:when test="${not empty(admin.name)}">
+Hello:  ${admin.name} <br>
+<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+</c:when>
+<c:otherwise>
+Hello: ${user.name} <br>
+</c:otherwise>
+</c:choose>
+
 	<h3>Choose the form for SURVEY</h3>
 	<table>
 		<tr>
+			<th></th>
 			<th>Form Id</th>
 			<th>Form Title</th>
 		</tr>
 		<c:forEach items="${list}" var="list">
 			<tr>
+				<td><input type="checkbox"
+					onclick="send('${list.formId}','${list.formTitle}')"></td>
 				<td><c:out value="${list.formId}" /></td>
 				<td><c:out value="${list.formTitle}" /></td>
-				<td><button onclick="send('${list.formId}')" name="choose">Choose</button></td>
+				<%-- 				<td><button onclick="send('${list.formId}','${list.formTitle}')" name="choose">Choose</button></td> --%>
 			</tr>
 		</c:forEach>
 	</table>
+	<script>
+	function send(id,name){
+		document.location.href="DisplayQuesServlet?id="+id+"&&name="+name;
+	}
+	</script>
 </body>
 </html>

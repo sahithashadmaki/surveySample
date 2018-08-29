@@ -1,5 +1,6 @@
 package DAO;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,23 +21,27 @@ public class AddQuesDAO {
 	private AddQuesDAO(){
 		
 	}
-public QuestionClass addQ(QuestionClass qObj,String type,String question,int formId) throws SQLException{
+public void addQ(MultipleChoiceQ qObj,String type,String question,int formId) throws SQLException{
 	 PreparedStatement prepStmt=null;
 	  Connection con=null;
-	  String sql="insert into questions(q_text,form_id,q_type) values(?,"+"(select form_id from forms where form_id=?),"+"?);";
+	  String sql="insert into questions(q_text,form_id,q_type,options) values(?,"+"(select form_id from forms where form_id=?),"+"?,?);";
 	 // String type=qObj.getQueType();
 	 // String question=qObj.getquestion();
-	
+
+	  String[] optionArray=qObj.getQuestionOptions();
+	  String options=String.join(",", optionArray);
+	  System.out.println("options string: "+options);
 	  try {
 		con=ConnectionDB.getConnection();
 		prepStmt =con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 		prepStmt.setString(1, question);
 		prepStmt.setInt(2, formId);
 		prepStmt.setString(3, type);
+		prepStmt.setString(4, options);
 		prepStmt.executeUpdate();
 		ResultSet rs=prepStmt.getGeneratedKeys();
 		if(qObj instanceof MultipleChoiceQ){
-			MultipleChoiceQ mulObj=(MultipleChoiceQ)qObj;
+			  MultipleChoiceQ mulObj=(MultipleChoiceQ)qObj;
 			if(rs.next()){
 				
 				mulObj.setQuestionId(rs.getInt(1));
@@ -46,7 +51,8 @@ public QuestionClass addQ(QuestionClass qObj,String type,String question,int for
 			System.out.println("In if() in AddQuesDAO");
 			mulObj.setQuestion(question);
 			mulObj.setQueType(type);
-			return mulObj;
+			
+			//return mulObj;
 			
 		}else{
 			if(rs.next()){
@@ -65,7 +71,7 @@ public QuestionClass addQ(QuestionClass qObj,String type,String question,int for
 		con.close();
 		System.out.println("connection Closed");
 	}
-	return qObj;
+//	return qObj;
 
 	  
 	

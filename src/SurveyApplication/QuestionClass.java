@@ -23,10 +23,7 @@ public void setQuestion(String question) {
 public String getquestion() {
 	return question;
 }
-@Override
-public String toString() {
-	return "QuestionClass [questionId=" + questionId + ", question=" + question + ", queType=" + queType +"]"+"\n";
-}
+
 public void setQueType(String queType) {
 	this.queType = queType;
 }

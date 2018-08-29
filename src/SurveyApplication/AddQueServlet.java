@@ -1,6 +1,7 @@
 package SurveyApplication;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class AddQueServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	
+		
 	}
 
 	/**
@@ -68,28 +69,44 @@ public class AddQueServlet extends HttpServlet {
 		System.out.println("question: "+question); 
 		String type=request.getParameter("type");
 		System.out.println("type: "+type);
-String formId=request.getParameter("id");
+		String formId=request.getParameter("id");
 		//form=(Forms) request.getAttribute("id");
 	//	int formId=form.getFormId();
 		System.out.println("formId in addQservlet: "+formId);
 		try {
-		if(type.equals("Multiple Choice")){
-			String arr[]=request.getParameterValues("array");
+			String str=request.getParameter("str");
+			System.out.println("str: "+str);
+			String[] options=str.split(",");
+			System.out.println("options (AddQueServlet)String: "+options);
+			MultipleChoiceQ obj=new MultipleChoiceQ();
+			if(options!=null){
+			obj.setQuestionOptions(options);
+			}
+			 addQobj.addQ(obj,type,question,Integer.parseInt(formId));
+			
+			loadQues.addQtoList(form,Integer.parseInt(formId));
+			
+			ArrayList<MultipleChoiceQ> qlist=form.getList();
+
+			System.out.println(qlist);
+			request.setAttribute("list", qlist);
+			request.setAttribute("form", form);
+		/*if(type.equals("Multiple Choice")){
+			//String arr[]=request.getParameterValues("array");
+			String options=request.getParameter("json");
+			System.out.println("jsonString: "+options);
 			//	JsonConvert json=new JsonConvert();
 			//	String JSONstring=json.getOptionsAsJSONString(ow,arr);
 
 			MultipleChoiceQ obj=new MultipleChoiceQ();
-			obj.setQuestionOptions(arr);
+			obj.setQuestionOptions(options);
 			obj=(MultipleChoiceQ) addQobj.addQ(obj,type,question,Integer.parseInt(formId));
 			
 			loadQues.addQtoList(form,Integer.parseInt(formId));
 			
 			//session.setAttribute("questionsObj",obj );
-			int length=arr.length;
-			for(int i=0;i<length;i++){
-				System.out.println(arr[i]);
-			}
-			ArrayList<QuestionClass> qlist=form.getList();
+			
+			ArrayList<MultipleChoiceQ> qlist=form.getList();
 
 			System.out.println(qlist);
 			request.setAttribute("list", qlist);
@@ -103,13 +120,14 @@ String formId=request.getParameter("id");
 			qObj=addQobj.addQ(qObj,type,question,Integer.parseInt(formId));
 			loadQues.addQtoList(form,Integer.parseInt(formId));
 			
-			ArrayList<QuestionClass> list=form.getList();
+			ArrayList<MultipleChoiceQ> list=form.getList();
 			System.out.println(list);
 			request.setAttribute("list", list);
 			request.setAttribute("form", form);
-		}
+		}*/
 
 		if(button1!=null){
+			System.out.println("butejkjt");
 			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
 		}else if(button2!=null){
 			request.getRequestDispatcher("/AdminHeader.jsp").forward(request, response);
@@ -119,8 +137,7 @@ String formId=request.getParameter("id");
 			e.printStackTrace();
 		}
 		//list.add(obj);
-
-		doGet(request, response);
+		//doGet(request, response);
 	}
 
 }

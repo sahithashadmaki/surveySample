@@ -36,16 +36,23 @@
 
 	<script>
 		function addParameterToURL(id, name, btn) {
-			document.location.href = "EditFormServlet?id=" + id + "&&name="
-					+ name + "&&btn=" + btn;
+			/* $(document).ready(function(){
+		        $.post("EditFormServlet",
+		        {
+		          id: id,
+		          name: name,
+		          btn: btn
+		        },function(data,status){
+			           if(status=='success'){
+			        	   document.location.href="EditFormServlet";
+			           }
+			        }
+		        );
+		}); */
+			document.location.href = "EditFormServlet?id=" + id + 
+					"&&btn=" + btn; 
 
 		}
 	</script>
 </body>
 </html>
-
-<%-- 					<c:set var="id" scope="request" value="${list.formId}"></c:set> --%>
-<%-- <td><button onclick="<c:set var="id" scope="request" value="${list.formId}"></c:set>" name="edit">Edit</button></td> --%>
-<%-- <c:url value = "/EditFormServlet" var = "myURL">
-  					 <c:param name = "id" value = "${list.formId}"/>
-						</c:url> --%>

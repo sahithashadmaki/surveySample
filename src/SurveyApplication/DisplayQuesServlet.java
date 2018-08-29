@@ -13,45 +13,46 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.loadQuesDAO;
 
 /**
- * Servlet implementation class AddQHelperServlet
+ * Servlet implementation class DisplayQuesServlet
  */
-@WebServlet("/AddQHelperServlet")
-public class AddQHelperServlet extends HttpServlet {
-	loadQuesDAO loadQ;
+@WebServlet("/DisplayQuesServlet")
+public class DisplayQuesServlet extends HttpServlet {
+	loadQuesDAO loadQues;
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AddQHelperServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public void init(){
-		loadQ=loadQuesDAO.getObj();
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DisplayQuesServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+public void init(){
+	loadQues=loadQuesDAO.getObj();
+}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		Forms form =new Forms();
-		String formId=request.getParameter("fid");
-		System.out.println("formId: "+formId);
-		//String formTitle=request.getParameter("fname");
+		String formId=request.getParameter("id");
+		String formTitle=request.getParameter("name");
+		Forms form=new Forms();
 		form.setFormId(Integer.parseInt(formId));
-		//form.setFormTitle(formTitle);
+		form.setFormTitle(formTitle);
 		try {
-			loadQ.addQtoList(form, Integer.parseInt(formId));
-			ArrayList<MultipleChoiceQ> list=form.getList();
-			System.out.println("list:------"+list);
-			request.setAttribute("list", list);
+			loadQues.addQtoList(form, Integer.parseInt(formId));
+			ArrayList<MultipleChoiceQ> qlist=form.getList();
+			System.out.println(qlist);
+			request.setAttribute("list", qlist);
 			request.setAttribute("form", form);
-			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
+			request.getRequestDispatcher("SurveyForm.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -61,8 +62,7 @@ public class AddQHelperServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-	
+		//doGet(request, response);
 	}
 
 }

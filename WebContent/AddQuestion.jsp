@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Insert</title>
 </head>
 <body>
 
@@ -17,12 +17,16 @@
 		<tr>
 			<th>Question Id</th>
 			<th>Question</th>
+			<th>Options</th>
 		</tr>
 		<c:forEach items="${list}" var="list">
 
 			<tr>
 				<td><c:out value="${list.questionId}" /></td>
 				<td><c:out value="${list.question}" /></td>
+			<c:if test="${not empty(list.questionOptions)}">
+				<td><c:out value="${list.questionOptions }" /></td>
+			</c:if>
 
 			</tr>
 		</c:forEach>
@@ -76,19 +80,20 @@
 				for (i = 0; i < spanTotal.childNodes.length; i++) {
 					options.push(spanTotal.childNodes[i].value);
 				}
-				var json = JSON.stringify(options);
+				//var json = JSON.stringify(options);
+				var str=options.toString();
 				$(document).ready(function(){
 			        $.post("AddQueServlet",
 			        {
 			          id: id,
 			          type: type,
 			          question: question,
-			          json: json,
+			          str: str,
 			          button1: button1,
 			          button2: button2
 			        },function(data,status){
 				           if(status=='success'){
-				        	   document.location.href="AddQueServlet";
+				        	   window.location.href="AddQueServlet";
 				           }
 				        }
 			        );

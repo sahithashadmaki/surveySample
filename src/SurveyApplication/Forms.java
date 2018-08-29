@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Forms {
 int formId;
 String formTitle;
-ArrayList<QuestionClass> list;
+ArrayList<MultipleChoiceQ> list;
 boolean valid;
 public int getFormId() {
 	return formId;
@@ -20,10 +20,10 @@ public String getFormTitle() {
 public void setFormTitle(String formTitle) {
 	this.formTitle = formTitle;
 }
-public ArrayList<QuestionClass> getList() {
+public ArrayList<MultipleChoiceQ> getList() {
 	return list;
 }
-public void setList(ArrayList<QuestionClass> list) {
+public void setList(ArrayList<MultipleChoiceQ> list) {
 	this.list = list;
 }
 

@@ -14,7 +14,6 @@
 		<button  onclick="addQuestion('${form.formId}')">Add
 		Question</button>
 	<br>form Id: ${form.formId}
-	<br> form Title: ${form.formTitle}
 	<h3>List of questions</h3>
 	<br>
 	<table>

@@ -59,7 +59,7 @@ public void init(){
 		int formId=form.getFormId();
 		loadQues.addQtoList(form, formId);
 		if(form.isValid()==true){
-		ArrayList<QuestionClass> list=form.getList();
+		ArrayList<MultipleChoiceQ> list=form.getList();
 		//list=form.getList();
 		request.setAttribute("list", list);
 		//session.setAttribute("form", form);

@@ -68,7 +68,16 @@ public class AdminServlet extends HttpServlet {
 				if (role.equals("admin")) {
 					AdminInfoClass adminInfo = (AdminInfoClass) userInfo;
 					session.setAttribute("admin", adminInfo);
-					request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
+					//request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
+					
+					String sql = "select * from forms;";
+					AdminInfoClass adminObj = new AdminInfoClass();
+					adminObj=loadForm.addFormsToList(sql);
+					ArrayList<Forms> list = adminObj.getFormList();
+					request.setAttribute("list", list);
+					//session.setAttribute("user", userInfo);
+					request.getRequestDispatcher("/FormList.jsp").forward(request, response);
+					
 				}else if (role.equals("user")) {
 					String sql = "select * from forms;";
 					AdminInfoClass adminObj = new AdminInfoClass();

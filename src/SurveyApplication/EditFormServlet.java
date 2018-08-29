@@ -22,55 +22,58 @@ import DAO.loadQuesDAO;
 @WebServlet("/EditFormServlet")
 public class EditFormServlet extends HttpServlet {
 	LoadFormDAO loadForm;
-	loadQuesDAO loadQues; 
+	loadQuesDAO loadQues;
 	DeleteDAO deleteObj;
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditFormServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-public void init(){
-	loadForm = LoadFormDAO.getObj();
-	loadQues=loadQuesDAO.getObj();
-	deleteObj=DeleteDAO.getObj();
-}
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session =request.getSession();
-		String button=request.getParameter("btn");
-		String id=(String) request.getParameter("id");
-		String title=request.getParameter("name");
-	
-		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
-		int adminId=admin.getId();
-		System.out.println("admin id: "+adminId);
-		
-		Forms form=new Forms();
+	public EditFormServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public void init() {
+		loadForm = LoadFormDAO.getObj();
+		loadQues = loadQuesDAO.getObj();
+		deleteObj = DeleteDAO.getObj();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String button = request.getParameter("btn");
+		String id = (String) request.getParameter("id");
+		// String title=request.getParameter("name");
+
+		AdminInfoClass admin = (AdminInfoClass) session.getAttribute("admin");
+		int adminId = admin.getId();
+		System.out.println("admin id: " + adminId);
+
+		Forms form = new Forms();
 		form.setFormId(Integer.parseInt(id));
-		form.setFormTitle(title);
+		// form.setFormTitle(title);
 		try {
-		if(button.equals("edit")){
-			System.out.print("id attri:  "+id);
-			
-				loadQues.addQtoList(form,Integer.parseInt(id));
-			
-			request.setAttribute("form", form);
-			ArrayList<QuestionClass> list=form.getList();
-			System.out.println(list);
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
-		}else if(button.equals("delete")){
-			String sql="delete from forms where form_id="+id+";";
-			System.out.println(sql);
-			deleteObj.delete(sql);
-		}
+			if (button.equals("edit")) {
+				System.out.print("id attri:  " + id);
+
+				loadQues.addQtoList(form, Integer.parseInt(id));
+
+				request.setAttribute("form", form);
+				ArrayList<MultipleChoiceQ> list = form.getList();
+				System.out.println(list);
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
+			} else if (button.equals("delete")) {
+				String sql = "delete from forms where form_id=" + id + ";";
+				System.out.println(sql);
+				deleteObj.delete(sql);
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,11 +84,14 @@ public void init(){
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		// doGet(request, response);
+
 	}
 
 }
