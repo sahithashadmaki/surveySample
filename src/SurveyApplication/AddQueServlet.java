@@ -74,12 +74,13 @@ public class AddQueServlet extends HttpServlet {
 	//	int formId=form.getFormId();
 		System.out.println("formId in addQservlet: "+formId);
 		try {
+			MultipleChoiceQ obj=new MultipleChoiceQ();
 			String str=request.getParameter("str");
 			System.out.println("str: "+str);
+			if(str!=null){
 			String[] options=str.split(",");
 			System.out.println("options (AddQueServlet)String: "+options);
-			MultipleChoiceQ obj=new MultipleChoiceQ();
-			if(options!=null){
+			
 			obj.setQuestionOptions(options);
 			}
 			 addQobj.addQ(obj,type,question,Integer.parseInt(formId));
@@ -126,12 +127,12 @@ public class AddQueServlet extends HttpServlet {
 			request.setAttribute("form", form);
 		}*/
 
-		if(button1!=null){
+		/*if(button1!=null){
 			System.out.println("butejkjt");
 			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
 		}else if(button2!=null){
 			request.getRequestDispatcher("/AdminHeader.jsp").forward(request, response);
-		}
+		}*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

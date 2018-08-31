@@ -1,7 +1,6 @@
 package SurveyApplication;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,46 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.DeleteDAO;
-import DAO.loadQuesDAO;
-
 /**
- * Servlet implementation class EditQueServlet
+ * Servlet implementation class StoreAnswersServlet
  */
-@WebServlet("/EditQueServlet")
-public class EditQueServlet extends HttpServlet {
-	DeleteDAO deleteObj;
+@WebServlet("/StoreAnswersServlet")
+public class StoreAnswersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditQueServlet() {
+    public StoreAnswersServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-public void init(){
-	deleteObj=DeleteDAO.getObj();
-}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		//HttpSession session =request.getSession();
-		String id=(String) request.getParameter("id");
-		//String question=request.getParameter("que");
-		System.out.println(id);
-		//System.out.println(question);
-	String sql="delete from questions where q_id="+id+";";
-	System.out.println(sql);
-	try {
-		deleteObj.delete(sql);
-	} catch (SQLException e) {
-		
-		e.printStackTrace();
-	}
 		
 	}
 
@@ -59,7 +39,11 @@ public void init(){
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		HttpSession session=request.getSession();
+		Forms form=new Forms();
+		String formId= (String) request.getAttribute("id");
+		System.out.println(formId);
 	}
 
 }

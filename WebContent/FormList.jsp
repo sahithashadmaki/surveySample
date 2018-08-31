@@ -20,6 +20,7 @@ Hello:  ${admin.name} <br>
 </c:when>
 <c:otherwise>
 Hello: ${user.name} <br>
+<jsp:include page="GeneralHeader.jsp"></jsp:include><br>
 </c:otherwise>
 </c:choose>
 

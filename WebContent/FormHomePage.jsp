@@ -5,9 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
+Hello:  ${admin.name} <br>
+<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+<br>
 	<form action="CreateForm.jsp">
 		<input type="submit" value="createForm">
 	</form>
@@ -28,7 +33,7 @@
 						onclick="addParameterToURL('${list.formId}','${list.formTitle}','edit')"
 						name="edit">Edit</button></td>
 				<td><button
-						onclick="addParameterToURL('${list.formId}','${list.formTitle}','delete')"
+						onclick="deleteForm('${list.formId}')"
 						name="delete">Delete</button></td>
 			</tr>
 		</c:forEach>
@@ -36,22 +41,30 @@
 
 	<script>
 		function addParameterToURL(id, name, btn) {
-			/* $(document).ready(function(){
-		        $.post("EditFormServlet",
-		        {
-		          id: id,
-		          name: name,
-		          btn: btn
-		        },function(data,status){
-			           if(status=='success'){
-			        	   document.location.href="EditFormServlet";
-			           }
-			        }
-		        );
-		}); */
+			
 			document.location.href = "EditFormServlet?id=" + id + 
 					"&&btn=" + btn; 
 
+		}
+		</script>
+		<script>
+		function deleteForm(id){
+			var sql=sql="delete from forms where form_id=(select form_id from forms where form_id="+id+");";
+			 $.ajax({
+			        url: 'DeleteServlet',
+			        type: 'POST',
+			        data: {
+			        	id: id,
+			        	sql: sql
+			              },
+			        success: function(response) {
+			        	//  alert("success");
+			           location.reload();
+			        },
+			        error: function(jqXHR, e) {
+			            alert('error'+e);
+			        }
+			      });
 		}
 	</script>
 </body>

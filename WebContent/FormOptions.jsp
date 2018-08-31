@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+Hello:  ${admin.name} <br>
+<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+<br>
 	<!-- 
 <form action="AddQuestion.jsp">
 <input type="submit" value="Add Questions"></form> -->

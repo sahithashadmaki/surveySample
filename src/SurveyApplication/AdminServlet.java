@@ -47,11 +47,7 @@ public class AdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
-
-		// response.setContentType("text/html");
+		
 		String uName = request.getParameter("uname");
 		String uPass = request.getParameter("pass");
 
@@ -68,24 +64,12 @@ public class AdminServlet extends HttpServlet {
 				if (role.equals("admin")) {
 					AdminInfoClass adminInfo = (AdminInfoClass) userInfo;
 					session.setAttribute("admin", adminInfo);
-					//request.getRequestDispatcher("/AdminOptions.jsp").forward(request, response);
-					
-					String sql = "select * from forms;";
-					AdminInfoClass adminObj = new AdminInfoClass();
-					adminObj=loadForm.addFormsToList(sql);
-					ArrayList<Forms> list = adminObj.getFormList();
-					request.setAttribute("list", list);
-					//session.setAttribute("user", userInfo);
-					request.getRequestDispatcher("/FormList.jsp").forward(request, response);
+					request.getRequestDispatcher("/AdminHeader.jsp").forward(request, response);
 					
 				}else if (role.equals("user")) {
-					String sql = "select * from forms;";
-					AdminInfoClass adminObj = new AdminInfoClass();
-					adminObj=loadForm.addFormsToList(sql);
-					ArrayList<Forms> list = adminObj.getFormList();
-					request.setAttribute("list", list);
 					session.setAttribute("user", userInfo);
-					request.getRequestDispatcher("/FormList.jsp").forward(request, response);
+					request.getRequestDispatcher("/GeneralHeader.jsp").forward(request, response);
+					
 				}
 			} else {
 				request.setAttribute("errorMsg", "invalid username or password");

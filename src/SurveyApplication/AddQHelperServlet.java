@@ -48,7 +48,8 @@ public class AddQHelperServlet extends HttpServlet {
 			System.out.println("list:------"+list);
 			request.setAttribute("list", list);
 			request.setAttribute("form", form);
-			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
+			//request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
+			request.getRequestDispatcher("/AddQuePopper.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

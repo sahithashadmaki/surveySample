@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,10 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<h3>enter form details you want to EDIT</h3>
-<form action="" method="post">
-Form Id: <input type="text" name="fid">
-Form Name: <input type="text" name="fname"> </form>
+<div class="w3-container w3-red">
+<a href="TakeSurveyServlet">Take Survey</a>
+ <a href="">Log Out</a>
+<!-- <div style="position: relative; width: 1000px;">
+  <div style="position: absolute; top: 0; right: 0; width: 100px; text-align:right;">
+ <a href="">Log Out</a>
+  </div>
+  <a href="TakeSurveyServlet">Take Survey</a>
+  
+  </div> -->
+  </div>
 </body>
 </html>

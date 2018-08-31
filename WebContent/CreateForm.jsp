@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+Hello:  ${admin.name} <br>
+<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+
 <form name="myform" action="ServletCreateForm" method="post" onsubmit="return validation()">
 Form Title: <input type="text" name="formName">
 <input type="submit" value="next"></form>

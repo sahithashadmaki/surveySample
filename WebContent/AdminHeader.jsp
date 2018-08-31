@@ -7,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="FormChangesServlet">Forms</a>
+
+<jsp:include page="GeneralHeader.jsp"></jsp:include>
+<div class="w3-container w3-blue">
+<a href="FormChangesServlet">My Forms</a>
 <a href="">UserInfo</a>
-<a href="">Log Out</a>
+</div>
 </body>
 </html>
