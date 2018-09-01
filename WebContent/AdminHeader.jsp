@@ -8,10 +8,10 @@
 </head>
 <body>
 
-<jsp:include page="GeneralHeader.jsp"></jsp:include>
-<div class="w3-container w3-blue">
+
 <a href="FormChangesServlet">My Forms</a>
 <a href="">UserInfo</a>
-</div>
+<jsp:include page="GeneralHeader.jsp"></jsp:include>
+
 </body>
 </html>

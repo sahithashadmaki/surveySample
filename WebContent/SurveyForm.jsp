@@ -14,9 +14,6 @@
 </head>
 <body>
  
-
-<c:set var="id" scope="request" value="${form.formId}"></c:set>
-<form action="StoreAnswersServlet" method="post" >
 <c:choose>
 <c:when test="${not empty(admin.name)}">
 Hello:  ${admin.name} <br>
@@ -27,6 +24,9 @@ Hello: ${user.name} <br>
 <jsp:include page="GeneralHeader.jsp"></jsp:include><br>
 </c:otherwise>
 </c:choose>
+
+<form action="StoreAnswersServlet?id=${form.formId}" method="post" >
+
 
 	<h3>${form.formTitle}</h3>
 	<c:forEach items="${list}" var="list" varStatus="loop">

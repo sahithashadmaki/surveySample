@@ -50,7 +50,6 @@ Hello:  ${admin.name} <br>
 		<script>
 		function deleteForm(id){
 			var form="form";
-			//var sql=sql="delete from forms where form_id=(select form_id from forms where form_id="+id+");";
 			 $.ajax({
 			        url: 'DeleteServlet',
 			        type: 'POST',

@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="w3-container w3-red">
 <a href="TakeSurveyServlet">Take Survey</a>
  <a href="">Log Out</a>
 <!-- <div style="position: relative; width: 1000px;">
@@ -17,6 +16,5 @@
   <a href="TakeSurveyServlet">Take Survey</a>
   
   </div> -->
-  </div>
 </body>
 </html>
