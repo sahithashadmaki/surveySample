@@ -44,12 +44,24 @@ public class DeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		String sql=null;
 		String id=(String) request.getParameter("id");
-		String sql=request.getParameter("sql");
 		System.out.println(id);
-		System.out.println(sql);
+		String value=request.getParameter("value");
+		if(value.equals("que")){
+			sql="delete from questions where q_id="+id+";";
+			System.out.println(sql);
+		}
+		else if(value.equals("form")){
+			sql="alter table forms nocheck constraint FK__user_id__form_id;"+
+					"alter table questions nocheck constraint FK__form_questions;"+"delete from forms where form_id="+id+";"+
+					"alter table questions check constraint FK__form_questions;"+
+					"alter table forms check constraint FK__user_id__form_id;";
+			System.out.println(sql);
+		}
+		
 	//String sql="delete from questions where q_id="+id+";";
-	System.out.println(sql);
+	
 	try {
 		deleteObj.delete(sql);
 	} catch (SQLException e) {

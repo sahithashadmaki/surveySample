@@ -28,7 +28,7 @@ Hello:  ${admin.name} <br>
 			<tr>
 				<td><c:out value="${list.questionId}" /></td>
 				<td><c:out value="${list.question}" /></td>
-				<td><button onclick="addParameterToURL('${list.questionId}','${list.question}')"
+				<td><button onclick="deleteQues('${list.questionId}')"
 							id="delete">Delete</button></td>
 				
 
@@ -39,16 +39,26 @@ Hello:  ${admin.name} <br>
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<script>
-	function addParameterToURL(id,que){
-	   $(document).ready(function(){
-        $.post("EditQueServlet",
-        {
-          id: id,
-          que: que
-        }
-        );
-});
+	function deleteQues(id){
+		var que="que";
+		 $.ajax({
+		        url: 'DeleteServlet',
+		        type: 'POST',
+		        data: {
+		        	id: id,
+		        	value: que
+		              },
+		        success: function(response) {
+		        	//  alert("success");
+		           location.reload();
+		        },
+		        error: function(jqXHR, e) {
+		            alert('error'+e);
+		        }
+		      });
 	}
+	</script>
+	<script>
 	function addQuestion(fId){
 		 document.location.href="AddQHelperServlet?fid="+fId;
 	 /*   $(document).ready(function(){

@@ -49,13 +49,14 @@ Hello:  ${admin.name} <br>
 		</script>
 		<script>
 		function deleteForm(id){
-			var sql=sql="delete from forms where form_id=(select form_id from forms where form_id="+id+");";
+			var form="form";
+			//var sql=sql="delete from forms where form_id=(select form_id from forms where form_id="+id+");";
 			 $.ajax({
 			        url: 'DeleteServlet',
 			        type: 'POST',
 			        data: {
 			        	id: id,
-			        	sql: sql
+			        	value: form
 			              },
 			        success: function(response) {
 			        	//  alert("success");

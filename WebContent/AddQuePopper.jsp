@@ -150,14 +150,15 @@
 
 <script>
 function deleteQues(quesId){
-	var sql=sql="delete from questions where q_id="+quesId+";";
-	console.log(sql);
+	var ques="que";
+	//var sql=sql="delete from questions where q_id="+quesId+";";
+	//console.log(sql);
 	  $.ajax({
 	        url: 'DeleteServlet',
 	        type: 'POST',
 	        data: {
 	        	id: quesId,
-	        	sql: sql
+	        	value: ques
 	              },
 	        success: function(response) {
 	        	//  alert("success");
