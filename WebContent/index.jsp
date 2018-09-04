@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="TakeSurveyServlet">Take Survey</a>
- <a href="LogOutServlet">Log Out</a>
-
+${msg}
+<br>
+<a href="UserLogin.jsp">Login</a>
 </body>
 </html>

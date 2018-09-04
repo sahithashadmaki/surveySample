@@ -61,17 +61,14 @@ public class AddQueServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
 		Forms form=new Forms();
-		//ArrayList<QuestionClass> qlist = null;
-		String button1 = request.getParameter("button1");
-		String button2 = request.getParameter("button2");
+		
 		
 		String question=request.getParameter("question");
 		System.out.println("question: "+question); 
 		String type=request.getParameter("type");
 		System.out.println("type: "+type);
 		String formId=request.getParameter("id");
-		//form=(Forms) request.getAttribute("id");
-	//	int formId=form.getFormId();
+		
 		System.out.println("formId in addQservlet: "+formId);
 		try {
 			MultipleChoiceQ obj=new MultipleChoiceQ();
@@ -92,53 +89,12 @@ public class AddQueServlet extends HttpServlet {
 			System.out.println(qlist);
 			request.setAttribute("list", qlist);
 			request.setAttribute("form", form);
-		/*if(type.equals("Multiple Choice")){
-			//String arr[]=request.getParameterValues("array");
-			String options=request.getParameter("json");
-			System.out.println("jsonString: "+options);
-			//	JsonConvert json=new JsonConvert();
-			//	String JSONstring=json.getOptionsAsJSONString(ow,arr);
-
-			MultipleChoiceQ obj=new MultipleChoiceQ();
-			obj.setQuestionOptions(options);
-			obj=(MultipleChoiceQ) addQobj.addQ(obj,type,question,Integer.parseInt(formId));
-			
-			loadQues.addQtoList(form,Integer.parseInt(formId));
-			
-			//session.setAttribute("questionsObj",obj );
-			
-			ArrayList<MultipleChoiceQ> qlist=form.getList();
-
-			System.out.println(qlist);
-			request.setAttribute("list", qlist);
-			//session.setAttribute("form", form);
-			request.setAttribute("form", form);
-
-		}else if(type.equals("Text Type")){
-			QuestionClass qObj=new QuestionClass();
-			//qObj.setQueType(type);
-		//	qObj.setQuestion(question);
-			qObj=addQobj.addQ(qObj,type,question,Integer.parseInt(formId));
-			loadQues.addQtoList(form,Integer.parseInt(formId));
-			
-			ArrayList<MultipleChoiceQ> list=form.getList();
-			System.out.println(list);
-			request.setAttribute("list", list);
-			request.setAttribute("form", form);
-		}*/
-
-		/*if(button1!=null){
-			System.out.println("butejkjt");
-			request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
-		}else if(button2!=null){
-			request.getRequestDispatcher("/AdminHeader.jsp").forward(request, response);
-		}*/
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//list.add(obj);
-		//doGet(request, response);
+		
 	}
 
 }

@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="TakeSurveyServlet">Take Survey</a>
- <a href="LogOutServlet">Log Out</a>
-
+Form Title: ${form.formTitle}
+<br>
+No of users : ${count}
 </body>
 </html>

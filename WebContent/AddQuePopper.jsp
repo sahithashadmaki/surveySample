@@ -24,6 +24,7 @@
 	<br>
 	<h4>Below are the Questions added already</h4>
 	<br>
+	
 	<table>
 		<tr>
 			
@@ -59,7 +60,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">Adding Question</h4>
-						<!-- 						<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+						
 					</div>
 					<div class="modal-body">
 						<h4>Select type of question</h4>
@@ -121,10 +122,10 @@
 			}
 
 			var str = options.toString();
-			console.log(id);
+			/* console.log(id);
 			console.log(str);
 			var type=$('.modal-body #typeId').val();
-			console.log(type);
+			console.log(type); */
 		
     $.ajax({
         url: 'AddQueServlet',

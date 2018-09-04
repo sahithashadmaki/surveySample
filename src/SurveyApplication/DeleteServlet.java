@@ -50,6 +50,14 @@ public class DeleteServlet extends HttpServlet {
 		String value=request.getParameter("value");
 		if(value.equals("que")){
 			sql="delete from questions where q_id="+id+";";
+			
+			/*sql="alter table forms nocheck constraint FK__user_id__form_id;"+
+					"alter table questions nocheck constraint FK__form_questions;"+
+					"alter table answers no check constraint FK_answers_questions_qId;"+
+					"delete from forms where form_id="+id+";"+
+					"alter table answers check constraint FK_answers_questions_qId;"+
+					"alter table questions check constraint FK__form_questions;"+
+					"alter table forms check constraint FK__user_id__form_id;";*/
 			System.out.println(sql);
 		}
 		else if(value.equals("form")){

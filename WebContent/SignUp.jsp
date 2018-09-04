@@ -21,8 +21,6 @@
 		
 	</script>
 	<script>
-		
-
 		function validateEmail() {
 			var name = document.forms["myform"]["name"].value;
 			var pass = document.forms["myform"]["pwd"].value;

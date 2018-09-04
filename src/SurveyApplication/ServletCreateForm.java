@@ -60,9 +60,7 @@ public void init(){
 		loadQues.addQtoList(form, formId);
 		if(form.isValid()==true){
 		ArrayList<MultipleChoiceQ> list=form.getList();
-		//list=form.getList();
 		request.setAttribute("list", list);
-		//session.setAttribute("form", form);
 		request.setAttribute("form", form);
 		request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
 		}else if(form.isValid()==false){

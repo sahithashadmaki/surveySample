@@ -52,19 +52,6 @@ Hello: ${user.name} <br>
 	</c:forEach>
 	<input type="submit" value="submit">
 </form>
-<!-- <script>
-function send(list){
-	//var res=list[0];
-	/* var result = {};
-	for (var i=0; i<list.length; i++) {
-	  result[list[i].key] = list[i].value;
-	} */
 
-	//result
-	console.log(Object.values(list));
-	console.log(list);
-	console.log(list[1]);
-}</script>
- -->
 </body>
 </html>

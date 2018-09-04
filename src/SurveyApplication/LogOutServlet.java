@@ -14,35 +14,52 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LogOutServlet")
 public class LogOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LogOutServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
-		int adminId=admin.getId();
-		session.invalidate();
-		System.out.println("invalidated session");
-		response.sendRedirect("/UserLogin.jsp");
+	public LogOutServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	
+		HttpSession session = request.getSession();
+		int adminId;
+		int userId;
+		String message;
+		UserInfo user = (UserInfo) session.getAttribute("user");
+		if (user != null) {
+			userId = user.getId();
+			message = "User Logged out: User Id: " + userId;
+		} else {
+			AdminInfoClass admin = (AdminInfoClass) session.getAttribute("admin");
+			adminId = admin.getId();
+			message = "User Logged out: User Id: " + adminId;
+		}
+		request.setAttribute("msg", message);
+
+		session.invalidate();
+		System.out.println("invalidated session");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		// doGet(request, response);
+		
 	}
 
 }

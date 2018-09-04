@@ -59,9 +59,10 @@ Hello: ${user.name} <br>
 		</c:forEach>
 	</table>
 	<script>
-		function userinfo(id, name){
+		function userinfo(id,name){
 			document.location.href = "UserInfoServlet?id=" + id + "&&name="
 			+ name;
+			
 		}
 	</script>
 	<script>
