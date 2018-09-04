@@ -25,7 +25,7 @@ Hello:  ${admin.name} <br>
 			<th>FormId</th>
 			<th>FormTitle</th>
 		</tr>
-		<c:forEach items="${mylist}" var="list">
+		<c:forEach items="${list}" var="list">
 			<tr>
 				<td><c:out value="${list.formId}" /></td>
 				<td><c:out value="${list.formTitle}" /></td>

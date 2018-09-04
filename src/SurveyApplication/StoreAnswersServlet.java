@@ -65,8 +65,10 @@ public class StoreAnswersServlet extends HttpServlet {
 		String sqlQuery;
 		HttpSession session = request.getSession();
 		UserInfo user = (UserInfo) session.getAttribute("user");
+		
 		if (user != null) {
 			userId = user.getId();
+			
 		} else {
 			AdminInfoClass admin = (AdminInfoClass) session.getAttribute("admin");
 			userId = admin.getId();
@@ -84,13 +86,7 @@ public class StoreAnswersServlet extends HttpServlet {
 			int listSize = list.size();
 			System.out.println(listSize);
 			String sql = "select * from answers where form_id=" + formId + "and user_id=" + userId + ";";
-			if (checkAns.check(sql)) {
-				sqlQuery = "delete from answers where form_id=" + formId + "and user_id=" + userId + ";"
-						+ "insert into answers(q_id,user_id,answer,form_id)values(?,?,?,?)";
-				System.out.println("survey already taken");
-			} else {
-				sqlQuery = "insert into answers(q_id,user_id,answer,form_id)values(?,?,?,?)";
-			}
+			
 			for (MultipleChoiceQ qlist : list) {
 
 				int id = qlist.getQuestionId();
@@ -106,7 +102,18 @@ public class StoreAnswersServlet extends HttpServlet {
 				// System.out.println("answer: "+answer);
 			}
 			System.out.println(answerList);
-			addanswer.addAnswerToDB(answerList, sqlQuery);
+			boolean value=checkAns.check(sql);
+			addanswer.addAnswerToDB(Integer.parseInt(formId),userId,answerList,value);
+		/*	if (checkAns.check(sql)) {
+				sqlQuery = "delete from answers where form_id=" + formId + "and user_id=" + userId + ";"
+						+ "insert into answers(q_id,user_id,answer,form_id)values(?,?,?,?)";
+				System.out.println("survey already taken");
+				addanswer.addAnswerToDB(answerList, sqlQuery);
+			} else {
+				sqlQuery = "insert into answers(q_id,user_id,answer,form_id)values(?,?,?,?)";
+				addanswer.addAnswerToDB(answerList, sqlQuery);
+			}
+			*/
 			request.setAttribute("list", list);
 
 			request.setAttribute("map", map);

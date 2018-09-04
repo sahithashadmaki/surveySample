@@ -26,7 +26,7 @@
 	<br>
 	<table>
 		<tr>
-			<th>Question Id</th>
+			
 			<th>Question</th>
 			<th>Options</th>
 		</tr>
@@ -38,7 +38,7 @@
 
 				<td><c:if test="${not empty(list.questionOptions)}">
 						<c:forEach items="${list.questionOptions}" var="options">
-							<c:out value="${options}"></c:out>,
+							<c:out value="${options}"></c:out>
 				       </c:forEach>
 					</c:if> </td>
 					<td><button type="button" onclick="deleteQues('${list.questionId}')"

@@ -21,25 +21,7 @@
 		
 	</script>
 	<script>
-		/* 
-		 $(document).ready(function(e) {
-		 $('#btn').click(function() {
-		 var sEmail = $('#txtEmail').val();
-		 var uname=$('#uname').val();
-		 var pass=$('#pass').val();
-		 if ((sEmail==null || sEmail=="") && (user == null || user == "")&&(pass==null || pass=="") ) {
-		 alert('All fields are mandatory');
-		 e.preventDefault();
-		 }
-		 else if (validateEmail(sEmail)) {
 		
-		 }
-		 else {
-		 alert('Invalid Email Address');
-		 e.preventDefault();
-		 }
-		 });
-		 }); */
 
 		function validateEmail() {
 			var name = document.forms["myform"]["name"].value;

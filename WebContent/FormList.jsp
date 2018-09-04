@@ -9,22 +9,29 @@
 </head>
 <body>
 
-<%-- <c:if test="${not empty(admin.name)}">
+	<%-- <c:if test="${not empty(admin.name)}">
 Hello:  ${admin.name} <br>
 <jsp:include page="AdminHeader.jsp"></jsp:include><br>
 </c:if> --%>
-<c:choose>
-<c:when test="${not empty(admin.name)}">
+	<c:choose>
+		<c:when test="${not empty(admin.name)}">
 Hello:  ${admin.name} <br>
-<jsp:include page="AdminHeader.jsp"></jsp:include><br>
-</c:when>
-<c:otherwise>
+			<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+		</c:when>
+		<c:otherwise>
 Hello: ${user.name} <br>
-<jsp:include page="GeneralHeader.jsp"></jsp:include><br>
-</c:otherwise>
-</c:choose>
+			<jsp:include page="GeneralHeader.jsp"></jsp:include><br>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${userinfo == 'userinfo' }">
+			<h4>choose the form for user information</h4>
+		</c:when>
+		<c:otherwise>
+			<h4>Choose the form for SURVEY</h4>
+		</c:otherwise>
+	</c:choose>
 
-	<h3>Choose the form for SURVEY</h3>
 	<table>
 		<tr>
 			<th></th>
@@ -33,18 +40,35 @@ Hello: ${user.name} <br>
 		</tr>
 		<c:forEach items="${list}" var="list">
 			<tr>
-				<td><input type="checkbox"
-					onclick="send('${list.formId}','${list.formTitle}')"></td>
+				<c:choose>
+					<c:when test="${userinfo == 'userinfo' }">
+						<td><input type="checkbox"
+							onclick="userinfo('${list.formId}','${list.formTitle}')"></td>
+					</c:when>
+					<c:otherwise>
+						<td><input type="checkbox"
+							onclick="send('${list.formId}','${list.formTitle}')"></td>
+					</c:otherwise>
+				</c:choose>
+
+
 				<td><c:out value="${list.formId}" /></td>
 				<td><c:out value="${list.formTitle}" /></td>
-				<%-- 				<td><button onclick="send('${list.formId}','${list.formTitle}')" name="choose">Choose</button></td> --%>
+				
 			</tr>
 		</c:forEach>
 	</table>
 	<script>
-	function send(id,name){
-		document.location.href="DisplayQuesServlet?id="+id+"&&name="+name;
-	}
+		function userinfo(id, name){
+			document.location.href = "UserInfoServlet?id=" + id + "&&name="
+			+ name;
+		}
+	</script>
+	<script>
+		function send(id, name) {
+			document.location.href = "DisplayQuesServlet?id=" + id + "&&name="
+					+ name;
+		}
 	</script>
 </body>
 </html>

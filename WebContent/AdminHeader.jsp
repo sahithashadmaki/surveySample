@@ -9,8 +9,8 @@
 <body>
 
 
-<a href="FormChangesServlet">My Forms</a>
-<a href="">UserInfo</a>
+<a href="FormChangesServlet?type=forms">My Forms</a>
+<a href="FormChangesServlet?type=userinfo">UserInfo</a>
 <jsp:include page="GeneralHeader.jsp"></jsp:include>
 
 </body>

@@ -14,23 +14,23 @@ import javax.servlet.http.HttpSession;
 import DAO.LoadFormDAO;
 
 /**
- * Servlet implementation class EditFormServlet
+ * Servlet implementation class UserInfoServlet
  */
-@WebServlet("/FormChangesServlet")
-public class FormChangesServlet extends HttpServlet {
+@WebServlet("/UserInfoServlet")
+public class UserInfoServlet extends HttpServlet {
 	LoadFormDAO loadForm;
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FormChangesServlet() {
+    public UserInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-public void init(){
-	loadForm = LoadFormDAO.getObj();
-}
+    public void init(){
+    	loadForm = LoadFormDAO.getObj();
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -38,29 +38,6 @@ public void init(){
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		HttpSession session =request.getSession();
-		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
-		int adminId=admin.getId();
-		System.out.println("admin id: "+adminId);
-		String sql="select * from forms where admin_id="+adminId+";";
-		AdminInfoClass adminObj=new AdminInfoClass();
-		try {
-			adminObj=loadForm.addFormsToList(sql);
-		
-		ArrayList<Forms> mylist=adminObj.getFormList();
-		System.out.println(mylist);
-		request.setAttribute("list", mylist);
-		String type=request.getParameter("type");
-		if(type.equals("forms")){
-			request.getRequestDispatcher("/FormHomePage.jsp").forward(request, response);
-		}else if(type.equals("userinfo")){
-			request.setAttribute("userinfo", "userinfo");
-			request.getRequestDispatcher("/FormList.jsp").forward(request, response);
-		}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
