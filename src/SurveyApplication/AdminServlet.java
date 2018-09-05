@@ -60,6 +60,7 @@ public class AdminServlet extends HttpServlet {
 			System.out.println("role: " + role);
 			System.out.println("userInfo.isValid(): " + userInfo.isValid());
 			if (userInfo.isValid()) {
+				session.setAttribute("isvalid", "isvalid");
 				System.out.println("userInfo.isValid(): " + userInfo.isValid());
 				if (role.equals("admin")) {
 					AdminInfoClass adminInfo = (AdminInfoClass) userInfo;
@@ -71,6 +72,7 @@ public class AdminServlet extends HttpServlet {
 					request.getRequestDispatcher("/GeneralHeader.jsp").forward(request, response);
 					
 				}
+				
 			} else {
 				request.setAttribute("errorMsg", "invalid username or password");
 				request.getRequestDispatcher("/UserLogin.jsp").forward(request, response);
@@ -91,3 +93,29 @@ public class AdminServlet extends HttpServlet {
 
 	}
 }
+/*<url-pattern>/AdminServlet</url-pattern>
+   <url-pattern>/AddQHelperServlet</url-pattern>
+   <url-pattern>/AddQueServlet</url-pattern>
+   <url-pattern>/DeleteServlet</url-pattern>
+   <url-pattern>/DisplayQuesServlet</url-pattern>
+   <url-pattern>/EditFormServlet</url-pattern>
+   <url-pattern>/FormChangesServlet</url-pattern>
+   <url-pattern>/LogOutServlet</url-pattern>
+   <url-pattern>/StoreAnswersServlet</url-pattern>
+   <url-pattern>/TakeSurveyServlet</url-pattern>
+      <url-pattern>/UserInfoServlet</url-pattern>
+         <url-pattern>/AddQuePopper.jsp</url-pattern>
+         <url-pattern>/AdminHeader.jsp</url-pattern>
+         <url-pattern>/AdminLogin.jsp</url-pattern>
+         <url-pattern>/AdminOptions.jsp</url-pattern>
+         <url-pattern>/CreateForm.jsp</url-pattern>
+         <url-pattern>/DisplayAnswers.jsp</url-pattern>
+         <url-pattern>/FormHomePage.jsp</url-pattern>
+         <url-pattern>/FormList.jsp</url-pattern>
+         <url-pattern>/FormOptions.jsp</url-pattern>
+         <url-pattern>/GeneralHeader.jsp</url-pattern>
+         
+           <url-pattern>/SignUp.jsp</url-pattern>
+            <url-pattern>/SurveyForm.jsp</url-pattern>
+             <url-pattern>/UserInfoSurvey.jsp</url-pattern>
+              <url-pattern>/UserLogin.jsp</url-pattern>*/

@@ -5,12 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-Hello:  ${admin.name} <br>
+
 <jsp:include page="AdminHeader.jsp"></jsp:include><br>
 <br>
 	<form action="CreateForm.jsp">
@@ -18,6 +21,7 @@ Hello:  ${admin.name} <br>
 	</form>
 	<br> admin Id: ${admin.id}
 	<br> admin Name: ${admin.name}
+	<c:if test="${not empty(list)}">
 	<h3>List of Forms</h3>
 	<br>
 	<table>
@@ -30,7 +34,7 @@ Hello:  ${admin.name} <br>
 				<td><c:out value="${list.formId}" /></td>
 				<td><c:out value="${list.formTitle}" /></td>
 				<td><button
-						onclick="addParameterToURL('${list.formId}','${list.formTitle}','edit')"
+						onclick="addParameterToURL('${list.formId}')"
 						name="edit">Edit</button></td>
 				<td><button
 						onclick="deleteForm('${list.formId}')"
@@ -38,12 +42,11 @@ Hello:  ${admin.name} <br>
 			</tr>
 		</c:forEach>
 	</table>
-
+</c:if>
 	<script>
-		function addParameterToURL(id, name, btn) {
+		function addParameterToURL(id) {
 			
-			document.location.href = "EditFormServlet?id=" + id + 
-					"&&btn=" + btn; 
+			document.location.href = "EditFormServlet?id=" + id; 
 
 		}
 		</script>

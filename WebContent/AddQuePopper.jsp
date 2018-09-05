@@ -17,11 +17,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello: ${admin.name}
-	<br>
+	
 	<jsp:include page="AdminHeader.jsp"></jsp:include><br>
 	<br> Adding questions in form with ID: ${form.formId}
 	<br>
+	<c:choose>
+	<c:when test="${not empty(list)}">
+	
 	<h4>Below are the Questions added already</h4>
 	<br>
 	
@@ -48,7 +50,13 @@
 			</tr>
 		</c:forEach>
 	</table>
-
+</c:when>
+<c:otherwise>
+<br>
+No Questions in this FORM
+<br>
+</c:otherwise>
+</c:choose>
 	<div class="container mt-3">
 
 		<button type="button" class="btn btn-primary" id="myBtn">Add

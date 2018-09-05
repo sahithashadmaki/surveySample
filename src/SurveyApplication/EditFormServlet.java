@@ -47,7 +47,7 @@ public class EditFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String button = request.getParameter("btn");
+
 		String id = (String) request.getParameter("id");
 		// String title=request.getParameter("name");
 
@@ -59,21 +59,16 @@ public class EditFormServlet extends HttpServlet {
 		form.setFormId(Integer.parseInt(id));
 		// form.setFormTitle(title);
 		try {
-			if (button.equals("edit")) {
-				System.out.print("id attri:  " + id);
 
-				loadQues.addQtoList(form, Integer.parseInt(id));
+			System.out.print("id attri:  " + id);
+			loadQues.addQtoList(form, Integer.parseInt(id));
 
-				request.setAttribute("form", form);
-				ArrayList<MultipleChoiceQ> list = form.getList();
-				System.out.println(list);
-				request.setAttribute("list", list);
-				request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
-			} else if (button.equals("delete")) {
-				String sql = "delete from forms where form_id=" + id + ";";
-				System.out.println(sql);
-				deleteObj.delete(sql);
-			}
+			request.setAttribute("form", form);
+			ArrayList<MultipleChoiceQ> list = form.getList();
+			System.out.println(list);
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
+
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
