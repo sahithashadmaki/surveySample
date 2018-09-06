@@ -15,7 +15,32 @@
   </filter>
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+  
+   <url-pattern>/AddQHelperServlet</url-pattern>
+   <url-pattern>/AddQueServlet</url-pattern>
+   <url-pattern>/DeleteServlet</url-pattern>
+   <url-pattern>/DisplayQuesServlet</url-pattern>
+   <url-pattern>/EditFormServlet</url-pattern>
+   <url-pattern>/FormChangesServlet</url-pattern>
+   <url-pattern>/LogOutServlet</url-pattern>
+   <url-pattern>/StoreAnswersServlet</url-pattern>
+   <url-pattern>/TakeSurveyServlet</url-pattern>
+      <url-pattern>/UserInfoServlet</url-pattern>
+         <url-pattern>/AddQuePopper.jsp</url-pattern>
+         <url-pattern>/AdminHeader.jsp</url-pattern>
+         <url-pattern>/AdminLogin.jsp</url-pattern>
+         <url-pattern>/AdminOptions.jsp</url-pattern>
+         <url-pattern>/CreateForm.jsp</url-pattern>
+         <url-pattern>/DisplayAnswers.jsp</url-pattern>
+         <url-pattern>/FormHomePage.jsp</url-pattern>
+         <url-pattern>/FormList.jsp</url-pattern>
+         <url-pattern>/FormOptions.jsp</url-pattern>
+         <url-pattern>/GeneralHeader.jsp</url-pattern>
+         
+           
+            <url-pattern>/SurveyForm.jsp</url-pattern>
+             <url-pattern>/UserInfoSurvey.jsp</url-pattern>
+             
   </filter-mapping>
   <filter>
   <filter-name>CheckFormsFilter</filter-name>

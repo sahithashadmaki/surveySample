@@ -75,10 +75,11 @@ input[type=submit] {
 		function validation() {
 			var user = document.forms["myform"]["uname"].value;
 			var pass = document.forms["myform"]["pass"].value;
-			if ((user == null || user == "") && (pass == null || pass == "")) {
+			if ((user == null || user == "") || (pass == null || pass == "")) {
 				alert("Entries cannot be empty..!!");
 				return false;
 			}
+			
 		}
 	</script>
 </body>

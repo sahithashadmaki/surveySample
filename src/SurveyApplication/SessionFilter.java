@@ -59,8 +59,25 @@ public class SessionFilter implements Filter {
 		String sessionValid = null;
 		boolean s=(session==null);
 		System.out.println("session==null: "+s);
+		String str=null;
+		if(session.getAttribute("isvalid")==null){
+			System.out.println("22 else if");
+        	request.setAttribute("errorMsg", "Invalid session");
+        	request.getRequestDispatcher("UserLogin.jsp").include(request, response);
+		}else{
+			str=(String) session.getAttribute("isvalid");
+			System.out.println("Str:  "+str);
+			if(str.equals("isvalid")){
+			 	System.out.println("if");
+				chain.doFilter(request, response);
+			}else{
+				System.out.println("22 else if");
+	        	request.setAttribute("errorMsg", "Invalid session");
+	        	request.getRequestDispatcher("UserLogin.jsp").include(request, response);
+			}
+		}
 		
-		boolean a=path.startsWith("/SurveyApplication/");
+		/*boolean a=path.startsWith("/SurveyApplication/");
 		System.out.println("a:  "+a);
 		if(path.startsWith("/SurveyApplication/") && (!path.endsWith("/") && !path.endsWith("/Userlogin.jsp") )){
 			System.out.println("---------");
@@ -88,7 +105,7 @@ public class SessionFilter implements Filter {
         }  else{
         	System.out.println(" else");
         	chain.doFilter(request, response);
-        }
+        }*/
 	}
 
 	/**
