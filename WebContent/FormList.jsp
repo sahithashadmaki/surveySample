@@ -57,15 +57,15 @@ Hello:  ${admin.name} <br>
 
 				<td><c:out value="${list.formId}" /></td>
 				<td><c:out value="${list.formTitle}" /></td>
-				
+
 			</tr>
 		</c:forEach>
 	</table>
 	<script>
-		function userinfo(id,name){
+		function userinfo(id, name) {
 			document.location.href = "UserInfoServlet?id=" + id + "&&name="
-			+ name;
-			
+					+ name;
+
 		}
 	</script>
 	<script>

@@ -27,28 +27,34 @@ public class AddQHelperServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public void init(){
-		loadQ=loadQuesDAO.getObj();
+
+	public void init() {
+		loadQ = loadQuesDAO.getObj();
 	}
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		Forms form =new Forms();
-		String formId=request.getParameter("fid");
-		System.out.println("formId: "+formId);
-		//String formTitle=request.getParameter("fname");
+		// response.getWriter().append("Served at:
+		// ").append(request.getContextPath());
+		Forms form = new Forms();
+		String formId = request.getParameter("fid");
+		System.out.println("formId: " + formId);
+		// String formTitle=request.getParameter("fname");
 		form.setFormId(Integer.parseInt(formId));
-		//form.setFormTitle(formTitle);
+		// form.setFormTitle(formTitle);
 		try {
 			loadQ.addQtoList(form, Integer.parseInt(formId));
-			ArrayList<MultipleChoiceQ> list=form.getList();
-			System.out.println("list:------"+list);
+			ArrayList<MultipleChoiceQ> list = form.getList();
+			System.out.println("list:------" + list);
 			request.setAttribute("list", list);
 			request.setAttribute("form", form);
-			//request.getRequestDispatcher("/AddQuestion.jsp").forward(request, response);
+			// request.getRequestDispatcher("/AddQuestion.jsp").forward(request,
+			// response);
 			request.getRequestDispatcher("/AddQuePopper.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -58,12 +64,14 @@ public class AddQHelperServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	
+
 	}
 
 }

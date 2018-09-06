@@ -43,7 +43,7 @@ public class UserInfoServlet extends HttpServlet {
 		Forms form=new Forms();
 		form.setFormId(Integer.parseInt(id));
 		form.setFormTitle(name);
-		int count=userInfo.userMethod(Integer.parseInt(id));
+		int count = userInfo.userMethod(Integer.parseInt(id));
 		request.setAttribute("form", form);
 		request.setAttribute("count", count);
 		request.getRequestDispatcher("/UserInfoSurvey.jsp").forward(request, response);

@@ -19,33 +19,38 @@ import DAO.LoadFormDAO;
 public class TakeSurveyServlet extends HttpServlet {
 	LoadFormDAO loadForm;
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TakeSurveyServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-public void init(){
-	loadForm = LoadFormDAO.getObj();
-}
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public TakeSurveyServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public void init() {
+		loadForm = LoadFormDAO.getObj();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at:
+		// ").append(request.getContextPath());
 		String sql = "select * from forms;";
 		AdminInfoClass adminObj = new AdminInfoClass();
 		try {
-			adminObj=loadForm.addFormsToList(sql);
+			adminObj = loadForm.addFormsToList(sql);
 			ArrayList<Forms> list = adminObj.getFormList();
 			System.out.println(list);
 			request.setAttribute("list", list);
-			//session.setAttribute("user", userInfo);
+			// session.setAttribute("user", userInfo);
 			request.getRequestDispatcher("/FormList.jsp").forward(request, response);
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,13 +58,14 @@ public void init(){
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
-		
-	
+		// doGet(request, response);
+
 	}
 
 }

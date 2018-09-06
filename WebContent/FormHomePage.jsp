@@ -14,60 +14,58 @@
 </head>
 <body>
 
-<jsp:include page="AdminHeader.jsp"></jsp:include><br>
-<br>
+	<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+	<br>
 	<form action="CreateForm.jsp">
 		<input type="submit" value="createForm">
 	</form>
 	<br> admin Id: ${admin.id}
 	<br> admin Name: ${admin.name}
 	<c:if test="${not empty(list)}">
-	<h3>List of Forms</h3>
-	<br>
-	<table>
-		<tr>
-			<th>FormId</th>
-			<th>FormTitle</th>
-		</tr>
-		<c:forEach items="${list}" var="list">
+		<h3>List of Forms</h3>
+		<br>
+		<table>
 			<tr>
-				<td><c:out value="${list.formId}" /></td>
-				<td><c:out value="${list.formTitle}" /></td>
-				<td><button
-						onclick="addParameterToURL('${list.formId}')"
-						name="edit">Edit</button></td>
-				<td><button
-						onclick="deleteForm('${list.formId}')"
-						name="delete">Delete</button></td>
+				<th>FormId</th>
+				<th>FormTitle</th>
 			</tr>
-		</c:forEach>
-	</table>
-</c:if>
+			<c:forEach items="${list}" var="list">
+				<tr>
+					<td><c:out value="${list.formId}" /></td>
+					<td><c:out value="${list.formTitle}" /></td>
+					<td><button onclick="addParameterToURL('${list.formId}')"
+							name="edit">Edit</button></td>
+					<td><button onclick="deleteForm('${list.formId}')"
+							name="delete">Delete</button></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 	<script>
 		function addParameterToURL(id) {
-			
-			document.location.href = "EditFormServlet?id=" + id; 
+
+			document.location.href = "EditFormServlet?id=" + id;
 
 		}
-		</script>
-		<script>
-		function deleteForm(id){
-			var form="form";
-			 $.ajax({
-			        url: 'DeleteServlet',
-			        type: 'POST',
-			        data: {
-			        	id: id,
-			        	value: form
-			              },
-			        success: function(response) {
-			        	//  alert("success");
-			           location.reload();
-			        },
-			        error: function(jqXHR, e) {
-			            alert('error'+e);
-			        }
-			      });
+	</script>
+	<script>
+		function deleteForm(id) {
+			var form = "form";
+			$.ajax({
+				url : 'DeleteServlet',
+				type : 'POST',
+				data : {
+					id : id,
+					value : form
+				},
+				success : function(response) {
+					//  alert("success");
+					location.reload();
+				},
+				error : function(jqXHR, e) {
+					alert('error' + e);
+				}
+			});
 		}
 	</script>
 </body>

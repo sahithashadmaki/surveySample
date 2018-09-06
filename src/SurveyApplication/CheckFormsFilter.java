@@ -49,7 +49,7 @@ public class CheckFormsFilter implements Filter {
 			HttpServletResponse res = (HttpServletResponse) response; 
 			HttpSession session =req.getSession(false);
 		String formId=request.getParameter("id");
-		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
+		AdminInfoClass admin = (AdminInfoClass) session.getAttribute("admin");
 		int adminId=admin.getId();
 		boolean value=chkForm.formCheck(Integer.parseInt(formId), adminId);
 		if(value){

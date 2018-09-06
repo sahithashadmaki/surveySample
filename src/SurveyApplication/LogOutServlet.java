@@ -29,7 +29,7 @@ public class LogOutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		HttpSession session = request.getSession();
 		int adminId;
 		int userId;
@@ -59,7 +59,7 @@ public class LogOutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		
+
 	}
 
 }

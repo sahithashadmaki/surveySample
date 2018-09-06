@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import SurveyApplication.AdminInfoClass;
 import DAO.ConnectionDB;
-import SurveyApplication.MyException;
+
 import SurveyApplication.UserInfo;
  public class UserDAO 	{
 		static UserDAO userdao=new UserDAO();

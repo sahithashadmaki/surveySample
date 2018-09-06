@@ -1,9 +1,9 @@
 package SurveyApplication;
 
 public class QuestionClass implements QuestionsInterface {
-	int questionId;
-	String question;
-	String queType;
+	 int questionId;
+	 String question;
+	 String queType;
 
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;

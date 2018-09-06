@@ -12,18 +12,18 @@
 </head>
 <body>
 
-<c:choose>
-<c:when test="${not empty(admin.name)}">
+	<c:choose>
+		<c:when test="${not empty(admin.name)}">
 
-<jsp:include page="AdminHeader.jsp"></jsp:include><br>
-</c:when>
-<c:otherwise>
+			<jsp:include page="AdminHeader.jsp"></jsp:include><br>
+		</c:when>
+		<c:otherwise>
 
-<jsp:include page="GeneralHeader.jsp"></jsp:include><br>
-</c:otherwise>
-</c:choose>
+			<jsp:include page="GeneralHeader.jsp"></jsp:include><br>
+		</c:otherwise>
+	</c:choose>
 
-	
+
 	<table>
 		<tr>
 			<th>Question</th>

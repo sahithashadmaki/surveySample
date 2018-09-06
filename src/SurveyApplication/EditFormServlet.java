@@ -61,6 +61,7 @@ public class EditFormServlet extends HttpServlet {
 		try {
 
 			System.out.print("id attri:  " + id);
+
 			loadQues.addQtoList(form, Integer.parseInt(id));
 
 			request.setAttribute("form", form);
