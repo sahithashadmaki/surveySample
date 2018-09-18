@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import DAO.CheckFormsDAO;
 
 /**
@@ -22,6 +24,7 @@ import DAO.CheckFormsDAO;
 @WebFilter("/CheckFormsFilter")
 public class CheckFormsFilter implements Filter {
 	CheckFormsDAO chkForm;
+	 private static final Logger logr = Logger.getLogger(CheckFormsFilter.class.getName());
     /**
      * Default constructor. 
      */
@@ -56,7 +59,7 @@ public class CheckFormsFilter implements Filter {
 		chain.doFilter(request, response);
 		}
 		else{
-			System.out.println("----cannot edit the form----");
+			logr.error("----cannot edit the form----");
 			out.println("cannot edit the form");
 			
 		}

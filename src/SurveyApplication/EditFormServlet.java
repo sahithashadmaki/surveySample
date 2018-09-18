@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import DAO.AddFormDAO;
 import DAO.DeleteDAO;
 import DAO.LoadFormDAO;
@@ -25,7 +27,7 @@ public class EditFormServlet extends HttpServlet {
 	loadQuesDAO loadQues;
 	DeleteDAO deleteObj;
 	private static final long serialVersionUID = 1L;
-
+	 private static final Logger logr = Logger.getLogger(EditFormServlet.class.getName());
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -49,24 +51,21 @@ public class EditFormServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String id = (String) request.getParameter("id");
-		// String title=request.getParameter("name");
+
+		logr.info("id:  " + id);
 
 		AdminInfoClass admin = (AdminInfoClass) session.getAttribute("admin");
 		int adminId = admin.getId();
-		System.out.println("admin id: " + adminId);
+		logr.info("admin id: " + adminId);
 
 		Forms form = new Forms();
 		form.setFormId(Integer.parseInt(id));
-		// form.setFormTitle(title);
 		try {
-
-			System.out.print("id attri:  " + id);
 
 			loadQues.addQtoList(form, Integer.parseInt(id));
 
 			request.setAttribute("form", form);
 			ArrayList<MultipleChoiceQ> list = form.getList();
-			System.out.println(list);
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/FormOptions.jsp").forward(request, response);
 
@@ -85,9 +84,7 @@ public class EditFormServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-
+		
 	}
 
 }

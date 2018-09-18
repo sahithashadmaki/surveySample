@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import org.apache.log4j.Logger;
 
 import DAO.AddQuesDAO;
 
@@ -29,10 +26,7 @@ import DAO.loadQuesDAO;
 public class AddQueServlet extends HttpServlet {
 	AddQuesDAO addQobj;
 	loadQuesDAO loadQues;
-
-	// public static ObjectWriter ow = new
-	// ObjectMapper().writer().withDefaultPrettyPrinter();
-	// public static ObjectMapper mapper = new ObjectMapper();
+	 private static final Logger logr = Logger.getLogger(AddQueServlet.class.getName());
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -54,10 +48,7 @@ public class AddQueServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
-
+	
 	}
 
 	/**
@@ -71,19 +62,19 @@ public class AddQueServlet extends HttpServlet {
 		Forms form = new Forms();
 
 		String question = request.getParameter("question");
-		System.out.println("question: " + question);
+		logr.info("question: " + question);
 		String type = request.getParameter("type");
-		System.out.println("type: " + type);
+		logr.info("type: " + type);
 		String formId = request.getParameter("id");
 
-		System.out.println("formId in addQservlet: " + formId);
+		logr.info("formId in addQservlet: " + formId);
 		try {
 			MultipleChoiceQ obj = new MultipleChoiceQ();
-			String str = request.getParameter("str");
-			System.out.println("str: " + str);
-			if (str != null) {
-				String[] options = str.split(",");
-				System.out.println("options (AddQueServlet)String: " + options);
+			String optnStr = request.getParameter("optnStr");
+			logr.info("optnStr: " + optnStr);
+			if (optnStr != null) {
+				String[] options = optnStr.split(",");
+				logr.info("options (AddQueServlet)String: " + options);
 
 				obj.setQuestionOptions(options);
 			}
@@ -93,7 +84,6 @@ public class AddQueServlet extends HttpServlet {
 
 			ArrayList<MultipleChoiceQ> qlist = form.getList();
 
-			System.out.println(qlist);
 			request.setAttribute("list", qlist);
 			request.setAttribute("form", form);
 

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import DAO.LoadFormDAO;
 import DAO.UserInfoDAO;
 
@@ -21,7 +23,7 @@ import DAO.UserInfoDAO;
 public class UserInfoServlet extends HttpServlet {
 	UserInfoDAO userInfo;
 	private static final long serialVersionUID = 1L;
-       
+	 private static final Logger logr = Logger.getLogger(UserInfoServlet.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */

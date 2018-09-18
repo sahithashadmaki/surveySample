@@ -1,0 +1,4 @@
+2018-09-12 12:42:20 [ERROR] AdminServlet:79 - username: admin1
+2018-09-12 12:43:29 [INFO] ConnectionDB:44 - Connection created
+2018-09-12 12:43:30 [INFO] UserDAO:38 - value: true
+2018-09-12 12:43:30 [INFO] UserDAO:72 - connection Closed

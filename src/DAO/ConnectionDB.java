@@ -6,9 +6,12 @@ import java.sql.SQLException;
 
 import javax.sql.PooledConnection;
 
+import org.apache.log4j.Logger;
+
 import com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource;
 
 public class ConnectionDB {
+	 private static final Logger logr = Logger.getLogger(ConnectionDB.class.getName());
 	private static String url = "jdbc:sqlserver://ggku3ser2;instanceName=SQL2016;databaseName=surveyDB";
 	private static String uname = "sa";
 	private static String pass = "Welcome@1234";
@@ -37,10 +40,12 @@ public class ConnectionDB {
 		try {
 			con = pool.getConnection();
 			if (con != null) {
-				System.out.println("Connection created");
+				//System.out.println("Connection created");
+				logr.info("Connection created");
 			}
 		} catch (Exception e) {
-			System.out.println("error Connecting to DataBase");
+			//System.out.println("error Connecting to DataBase");
+			logr.fatal("error Connecting to DataBase");
 		}
 
 		return con;

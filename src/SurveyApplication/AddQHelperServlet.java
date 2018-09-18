@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import DAO.loadQuesDAO;
 
 /**
@@ -19,6 +21,7 @@ import DAO.loadQuesDAO;
 public class AddQHelperServlet extends HttpServlet {
 	loadQuesDAO loadQ;
 	private static final long serialVersionUID = 1L;
+	private static final Logger logr = Logger.getLogger(AddQHelperServlet.class.getName());
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,23 +41,17 @@ public class AddQHelperServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
+
 		Forms form = new Forms();
 		String formId = request.getParameter("fid");
-		System.out.println("formId: " + formId);
-		// String formTitle=request.getParameter("fname");
+		logr.info("formId: " + formId);
 		form.setFormId(Integer.parseInt(formId));
-		// form.setFormTitle(formTitle);
 		try {
 			loadQ.addQtoList(form, Integer.parseInt(formId));
 			ArrayList<MultipleChoiceQ> list = form.getList();
-			System.out.println("list:------" + list);
+
 			request.setAttribute("list", list);
 			request.setAttribute("form", form);
-			// request.getRequestDispatcher("/AddQuestion.jsp").forward(request,
-			// response);
 			request.getRequestDispatcher("/AddQuePopper.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

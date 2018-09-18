@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +30,8 @@ import DAO.UserDAO;
 public class AdminServlet extends HttpServlet {
 	UserDAO userdao;
 	LoadFormDAO loadForm;
+	 private static final Logger logr = Logger.getLogger(AdminServlet.class.getName());
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -48,7 +54,32 @@ public class AdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	//	PropertyConfigurator.configure("log4j.properties");
+		// TODO Auto-generated method stub
+		//doGet(request, response);
+		/*LogManager.getLogManager().reset();
+		
+		Handler consoleHandler=new ConsoleHandler();
+		
+		logr.addHandler(consoleHandler);
+		consoleHandler.setLevel(Level.ALL);
+	
+		logr.setLevel(Level.ALL);
+		logr.config("configuration done!");*/
 		String uName = request.getParameter("uname");
+		logr.info("username: "+uName);
+		logr.error("username: "+uName);
+		logr.debug("username: "+uName);
+		logr.warn("username: "+uName);
+		
 		String uPass = request.getParameter("pass");
 
 		UserInfo userInfo = new UserInfo();
@@ -57,11 +88,9 @@ public class AdminServlet extends HttpServlet {
 		try {
 			userInfo = userdao.login(uName, uPass);
 			String role = userInfo.getRole();
-			System.out.println("role: " + role);
-			System.out.println("userInfo.isValid(): " + userInfo.isValid());
-			if (userInfo.isValid()) {
+			logr.info("Role:  "+role);
+					if (userInfo.isValid()) {
 				session.setAttribute("isvalid", "isvalid");
-				System.out.println("userInfo.isValid(): " + userInfo.isValid());
 				if (role.equals("admin")) {
 					AdminInfoClass adminInfo = (AdminInfoClass) userInfo;
 					session.setAttribute("admin", adminInfo);
@@ -74,23 +103,13 @@ public class AdminServlet extends HttpServlet {
 				}
 				
 			} else {
+			logr.error("invalid username or password");
 				request.setAttribute("errorMsg", "invalid username or password");
 				request.getRequestDispatcher("/UserLogin.jsp").forward(request, response);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-
 	}
 }
 /**/

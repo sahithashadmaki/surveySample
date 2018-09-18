@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import DAO.StoreUserInfoDAO;
 
 /**
@@ -18,7 +20,7 @@ import DAO.StoreUserInfoDAO;
 public class UserSignUp extends HttpServlet {
 	StoreUserInfoDAO user;
 	private static final long serialVersionUID = 1L;
-       
+	 private static final Logger logr = Logger.getLogger(UserSignUp.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,13 +41,14 @@ public void init(){
 		String email=request.getParameter("email");
 		String pass=request.getParameter("pwd");
 		String emailCheckQuery="select * from users where email='"+email+"';";
-		System.out.println(emailCheckQuery);
+	
 		String sql="insert into users(user_name,user_pass,role,email) values('"+uname+"','"+pass+"','user','"+email+"');";
-		System.out.println(sql);
+		
 		try {
 			boolean emailExist=user.insertToDB(emailCheckQuery,sql);
 			if(emailExist){
 				String errorMsg="Record with this Email Id Exists";
+				logr.info("Record with this Email Id Exists");
 				request.setAttribute("emailError", errorMsg);
 				request.getRequestDispatcher("/SignUp.jsp").forward(request, response);
 			}else{

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import DAO.LoadFormDAO;
 
 /**
@@ -19,7 +21,7 @@ import DAO.LoadFormDAO;
 public class TakeSurveyServlet extends HttpServlet {
 	LoadFormDAO loadForm;
 	private static final long serialVersionUID = 1L;
-
+	 private static final Logger logr = Logger.getLogger(TakeSurveyServlet.class.getName());
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -46,9 +48,9 @@ public class TakeSurveyServlet extends HttpServlet {
 		try {
 			adminObj = loadForm.addFormsToList(sql);
 			ArrayList<Forms> list = adminObj.getFormList();
-			System.out.println(list);
+			
 			request.setAttribute("list", list);
-			// session.setAttribute("user", userInfo);
+		
 			request.getRequestDispatcher("/FormList.jsp").forward(request, response);
 
 		} catch (SQLException e) {
@@ -63,9 +65,7 @@ public class TakeSurveyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-
+	
 	}
 
 }

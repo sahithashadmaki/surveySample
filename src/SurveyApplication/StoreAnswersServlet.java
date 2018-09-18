@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import DAO.AddAnswerDAO;
 import DAO.CheckAnswersDAO;
 import DAO.loadQuesDAO;
@@ -26,7 +28,7 @@ public class StoreAnswersServlet extends HttpServlet {
 	AddAnswerDAO addanswer;
 	CheckAnswersDAO checkAns;
 	private static final long serialVersionUID = 1L;
-
+	 private static final Logger logr = Logger.getLogger(StoreAnswersServlet.class.getName());
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -47,9 +49,7 @@ public class StoreAnswersServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
+		
 
 	}
 
@@ -72,19 +72,17 @@ public class StoreAnswersServlet extends HttpServlet {
 		} else {
 			AdminInfoClass admin = (AdminInfoClass) session.getAttribute("admin");
 			userId = admin.getId();
-			System.out.println("admin id: " + userId);
+			logr.info("admin id: " + userId);
 		}
 		Forms form = new Forms();
 		String formId = (String) request.getParameter("id");
-
+		logr.info("formid: "+formId);
 		ArrayList<AnswersClass> answerList = new ArrayList<>();
 		Map<Integer, AnswersClass> map = new HashMap<>();
 		try {
 			loadQues.addQtoList(form, Integer.parseInt(formId));
 			ArrayList<MultipleChoiceQ> list = form.getList();
-			System.out.println(list);
-			int listSize = list.size();
-			System.out.println(listSize);
+	
 			String sql = "select * from answers where form_id=" + formId + "and user_id=" + userId + ";";
 			
 			for (MultipleChoiceQ qlist : list) {
@@ -101,19 +99,10 @@ public class StoreAnswersServlet extends HttpServlet {
 				map.put(id, answerObj);
 				// System.out.println("answer: "+answer);
 			}
-			System.out.println(answerList);
+			
 			boolean value=checkAns.check(sql);
 			addanswer.addAnswerToDB(Integer.parseInt(formId),userId,answerList,value);
-		/*	if (checkAns.check(sql)) {
-				sqlQuery = "delete from answers where form_id=" + formId + "and user_id=" + userId + ";"
-						+ "insert into answers(q_id,user_id,answer,form_id)values(?,?,?,?)";
-				System.out.println("survey already taken");
-				addanswer.addAnswerToDB(answerList, sqlQuery);
-			} else {
-				sqlQuery = "insert into answers(q_id,user_id,answer,form_id)values(?,?,?,?)";
-				addanswer.addAnswerToDB(answerList, sqlQuery);
-			}
-			*/
+	
 			request.setAttribute("list", list);
 
 			request.setAttribute("map", map);
@@ -125,7 +114,7 @@ public class StoreAnswersServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(formId);
+		
 	}
 
 }

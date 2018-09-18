@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import DAO.DeleteDAO;
 
 /**
@@ -18,7 +20,7 @@ import DAO.DeleteDAO;
 public class DeleteServlet extends HttpServlet {
 	DeleteDAO deleteObj;
 	private static final long serialVersionUID = 1L;
-
+	 private static final Logger logr = Logger.getLogger(DeleteServlet.class.getName());
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -52,7 +54,7 @@ public class DeleteServlet extends HttpServlet {
 		// doGet(request, response);
 		String sql = null;
 		String id = (String) request.getParameter("id");
-		System.out.println(id);
+		logr.info("id: "+id);
 		String value = request.getParameter("value");
 		if (value.equals("que")) {
 			sql = "delete from questions where q_id=" + id + ";";
@@ -66,14 +68,14 @@ public class DeleteServlet extends HttpServlet {
 			 * "alter table questions check constraint FK__form_questions;"+
 			 * "alter table forms check constraint FK__user_id__form_id;";
 			 */
-			System.out.println(sql);
+			
 		} else if (value.equals("form")) {
 			sql = "alter table forms nocheck constraint FK__user_id__form_id;"
 					+ "alter table questions nocheck constraint FK__form_questions;"
 					+ "delete from forms where form_id=" + id + ";"
 					+ "alter table questions check constraint FK__form_questions;"
 					+ "alter table forms check constraint FK__user_id__form_id;";
-			System.out.println(sql);
+		
 		}
 
 		try {

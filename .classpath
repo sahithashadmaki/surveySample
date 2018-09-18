@@ -13,8 +13,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/sahitha.shadamaki/Downloads/jackson-annotations-2.9.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sahitha.shadamaki/Downloads/jackson-core-2.9.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sahitha.shadamaki/Downloads/jackson-databind-2.9.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sahitha.shadamaki/Downloads/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

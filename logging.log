@@ -1,0 +1,20 @@
+<log4j:event logger="SurveyApplication.AdminServlet" timestamp="1536737134758" level="INFO" thread="http-nio-8080-exec-5">
+<log4j:message><![CDATA[username: user1]]></log4j:message>
+<log4j:locationInfo class="SurveyApplication.AdminServlet" method="doPost" file="AdminServlet.java" line="78"/>
+</log4j:event>
+
+<log4j:event logger="SurveyApplication.AdminServlet" timestamp="1536737134765" level="ERROR" thread="http-nio-8080-exec-5">
+<log4j:message><![CDATA[username: user1]]></log4j:message>
+<log4j:locationInfo class="SurveyApplication.AdminServlet" method="doPost" file="AdminServlet.java" line="79"/>
+</log4j:event>
+
+<log4j:event logger="SurveyApplication.AdminServlet" timestamp="1536737134765" level="WARN" thread="http-nio-8080-exec-5">
+<log4j:message><![CDATA[username: user1]]></log4j:message>
+<log4j:locationInfo class="SurveyApplication.AdminServlet" method="doPost" file="AdminServlet.java" line="81"/>
+</log4j:event>
+
+<log4j:event logger="SurveyApplication.AdminServlet" timestamp="1536737135472" level="INFO" thread="http-nio-8080-exec-5">
+<log4j:message><![CDATA[Role:  user]]></log4j:message>
+<log4j:locationInfo class="SurveyApplication.AdminServlet" method="doPost" file="AdminServlet.java" line="91"/>
+</log4j:event>
+

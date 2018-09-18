@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import DAO.AddFormDAO;
 import DAO.loadQuesDAO;
 
@@ -26,7 +28,7 @@ public class ServletCreateForm extends HttpServlet {
 	AddFormDAO addForm;
 	loadQuesDAO loadQues;
 	private static final long serialVersionUID = 1L;
-
+	 private static final Logger logr = Logger.getLogger(ServletCreateForm.class.getName());
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -53,7 +55,7 @@ public void init(){
 		AdminInfoClass admin=(AdminInfoClass) session.getAttribute("admin");
 
 		int adminId=admin.getId();
-		System.out.println("admin id: "+adminId);
+		logr.info("admin id: "+adminId);
 		try {
 			form=addForm.add(form,adminId,formName);
 		int formId=form.getFormId();

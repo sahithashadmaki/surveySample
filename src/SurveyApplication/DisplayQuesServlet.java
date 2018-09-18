@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import DAO.loadQuesDAO;
 
 /**
@@ -19,7 +21,7 @@ import DAO.loadQuesDAO;
 public class DisplayQuesServlet extends HttpServlet {
 	loadQuesDAO loadQues;
 	private static final long serialVersionUID = 1L;
-       
+	 private static final Logger logr = Logger.getLogger(DisplayQuesServlet.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -44,7 +46,7 @@ public void init(){
 		try {
 			loadQues.addQtoList(form, Integer.parseInt(formId));
 			ArrayList<MultipleChoiceQ> qlist=form.getList();
-			System.out.println(qlist);
+		
 			request.setAttribute("list", qlist);
 			request.setAttribute("form", form);
 			request.getRequestDispatcher("SurveyForm.jsp").forward(request, response);
