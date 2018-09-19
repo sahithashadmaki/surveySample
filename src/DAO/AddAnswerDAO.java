@@ -19,7 +19,7 @@ public class AddAnswerDAO {
 	private AddAnswerDAO() {
 
 	}
-
+//jkh
 	public void addAnswerToDB(int formId, int userId, ArrayList<AnswersClass> answersList, boolean value)
 			throws SQLException {
 		Connection con = null;
